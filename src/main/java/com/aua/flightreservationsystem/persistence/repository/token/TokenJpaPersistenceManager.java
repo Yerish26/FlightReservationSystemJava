@@ -1,8 +1,7 @@
-package com.aua.flightreservationsystem.persistence.repository;
+package com.aua.flightreservationsystem.persistence.repository.token;
 
-import com.aua.flightreservationsystem.core.flight.Customer;
-import com.aua.flightreservationsystem.core.flight.Token;
-import com.aua.flightreservationsystem.core.flight.TokenPersistenceManager;
+import com.aua.flightreservationsystem.core.jwt.Token;
+import com.aua.flightreservationsystem.core.jwt.TokenPersistenceManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 //import org.springframework.beans.factory.annotation.Autowired;

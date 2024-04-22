@@ -1,6 +1,6 @@
-package com.aua.flightreservationsystem.core.flight.filter;
+package com.aua.flightreservationsystem.core.jwt.filter;
 
-import com.aua.flightreservationsystem.core.flight.jwt.JwtService;
+import com.aua.flightreservationsystem.core.jwt.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

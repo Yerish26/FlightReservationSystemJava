@@ -1,6 +1,6 @@
-package com.aua.flightreservationsystem.persistence.repository;
+package com.aua.flightreservationsystem.persistence.repository.token;
 
-import com.aua.flightreservationsystem.core.flight.Token;
+import com.aua.flightreservationsystem.core.jwt.Token;
 import com.aua.flightreservationsystem.persistence.model.TokenEntity;
 import org.springframework.stereotype.Component;
 

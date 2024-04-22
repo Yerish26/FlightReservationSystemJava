@@ -1,4 +1,4 @@
-package com.aua.flightreservationsystem.core.flight.exceptions;
+package com.aua.flightreservationsystem.core.user.exceptions;
 
 public class UsernameNotFoundException extends Exception{
     public UsernameNotFoundException(String username){

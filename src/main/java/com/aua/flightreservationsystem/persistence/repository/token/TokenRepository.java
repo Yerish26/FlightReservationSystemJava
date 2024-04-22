@@ -1,4 +1,4 @@
-package com.aua.flightreservationsystem.persistence.repository;
+package com.aua.flightreservationsystem.persistence.repository.token;
 
 import com.aua.flightreservationsystem.persistence.model.TokenEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

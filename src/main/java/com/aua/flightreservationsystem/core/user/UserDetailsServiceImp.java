@@ -1,14 +1,16 @@
-package com.aua.flightreservationsystem.core.flight;
+package com.aua.flightreservationsystem.core.user;
 
-import com.aua.flightreservationsystem.persistence.repository.CustomerRepository;
+import com.aua.flightreservationsystem.persistence.repository.user.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
-public class CustomerUserDetailsServiceImp implements UserDetailsService {
-    private final CustomerRepository customerRepository;
+@Service
+public class UserDetailsServiceImp implements UserDetailsService {
+    private final UserRepository customerRepository;
 
-    public CustomerUserDetailsServiceImp(CustomerRepository customerRepository) {
+    public UserDetailsServiceImp(UserRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 

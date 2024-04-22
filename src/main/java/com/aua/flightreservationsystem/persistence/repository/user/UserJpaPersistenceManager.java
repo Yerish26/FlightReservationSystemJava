@@ -1,7 +1,7 @@
-package com.aua.flightreservationsystem.persistence.repository;
+package com.aua.flightreservationsystem.persistence.repository.user;
 
-import com.aua.flightreservationsystem.core.flight.Customer;
-import com.aua.flightreservationsystem.core.flight.CustomerPersistenceManager;
+import com.aua.flightreservationsystem.core.user.User;
+import com.aua.flightreservationsystem.core.user.UserPersistenceManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,31 +9,31 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CustomerJpaPersistenceManager implements CustomerPersistenceManager {
-    private final CustomerRepository customerRepository;
+public class UserJpaPersistenceManager implements UserPersistenceManager {
+    private final UserRepository customerRepository;
 
-    private final CustomerEntityMapper customerEntityMapper;
+    private final UserEntityMapper customerEntityMapper;
 
     @Autowired
-    public CustomerJpaPersistenceManager(CustomerRepository customerRepository, CustomerEntityMapper customerEntityMapper) {
+    public UserJpaPersistenceManager(UserRepository customerRepository, UserEntityMapper customerEntityMapper) {
         this.customerRepository = customerRepository;
         this.customerEntityMapper = customerEntityMapper;
     }
 
 
     @Override
-    public List<Customer> findAllCustomers() {
+    public List<User> findAllCustomers() {
         return customerRepository.findAll().stream().map(customerEntityMapper::map).toList();
     }
 
     @Override
-    public Optional<Customer> findById(Long id) {
+    public Optional<User> findById(Long id) {
         return customerRepository.findById(id).map(customerEntityMapper::map);
     }
 
 
     @Override
-    public Customer saveCustomer(Customer customer) {
+    public User saveCustomer(User customer) {
         return customerEntityMapper.map(customerRepository.save(customerEntityMapper.map(customer)));
     }
 

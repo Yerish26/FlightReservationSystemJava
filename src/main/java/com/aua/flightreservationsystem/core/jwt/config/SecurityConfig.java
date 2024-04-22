@@ -1,7 +1,7 @@
-package com.aua.flightreservationsystem.core.flight.config;
+package com.aua.flightreservationsystem.core.jwt.config;
 
-import com.aua.flightreservationsystem.core.flight.filter.JwtAuthenticationFilter;
-import com.aua.flightreservationsystem.core.flight.jwt.UserDetailsServiceImp;
+import com.aua.flightreservationsystem.core.jwt.filter.JwtAuthenticationFilter;
+import com.aua.flightreservationsystem.core.user.UserDetailsServiceImp;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;

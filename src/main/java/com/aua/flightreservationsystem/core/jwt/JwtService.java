@@ -1,7 +1,7 @@
-package com.aua.flightreservationsystem.core.flight.jwt;
+package com.aua.flightreservationsystem.core.jwt;
 
-import com.aua.flightreservationsystem.core.flight.Customer;
-import com.aua.flightreservationsystem.persistence.repository.TokenRepository;
+import com.aua.flightreservationsystem.core.user.User;
+import com.aua.flightreservationsystem.persistence.repository.token.TokenRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -61,16 +61,15 @@ public class JwtService {
     }
 
 
-    public String generateToken(Customer user) {
-        String token = Jwts
+    public String generateToken(User user) {
+
+        return Jwts
                 .builder()
                 .subject(user.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + 24*60*60*1000 ))
                 .signWith(getSigninKey())
                 .compact();
-
-        return token;
     }
 
     private SecretKey getSigninKey() {

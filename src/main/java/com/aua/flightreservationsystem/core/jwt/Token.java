@@ -1,4 +1,4 @@
-package com.aua.flightreservationsystem.core.flight;
+package com.aua.flightreservationsystem.core.jwt;
 
 import com.aua.flightreservationsystem.persistence.model.CustomerEntity;
 import lombok.Builder;

@@ -1,15 +1,14 @@
-package com.aua.flightreservationsystem.core.flight.jwt;
+package com.aua.flightreservationsystem.core.jwt;
 
-import com.aua.flightreservationsystem.persistence.repository.CustomerRepository;
-import com.aua.flightreservationsystem.persistence.repository.TokenRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.aua.flightreservationsystem.persistence.repository.user.UserRepository;
+import com.aua.flightreservationsystem.persistence.repository.token.TokenRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthenticationService {
-    private final CustomerRepository customerRepository;
+    private final UserRepository customerRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
 
@@ -18,7 +17,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
 
-    public AuthenticationService(CustomerRepository customerRepository, PasswordEncoder passwordEncoder, JwtService jwtService, TokenRepository tokenRepository, AuthenticationManager authenticationManager) {
+    public AuthenticationService(UserRepository customerRepository, PasswordEncoder passwordEncoder, JwtService jwtService, TokenRepository tokenRepository, AuthenticationManager authenticationManager) {
         this.customerRepository = customerRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;

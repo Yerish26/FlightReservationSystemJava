@@ -1,8 +1,8 @@
-package com.aua.flightreservationsystem.core.flight.config;
+package com.aua.flightreservationsystem.core.jwt.config;
 
 
 import com.aua.flightreservationsystem.persistence.model.TokenEntity;
-import com.aua.flightreservationsystem.persistence.repository.TokenRepository;
+import com.aua.flightreservationsystem.persistence.repository.token.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Configuration;

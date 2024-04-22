@@ -1,4 +1,4 @@
-package com.aua.flightreservationsystem.core.flight;
+package com.aua.flightreservationsystem.core.jwt;
 
 import java.util.List;
 import java.util.Optional;
