@@ -1,4 +1,6 @@
-package com.aua.flightreservationsystem.core.flight;
+package com.aua.flightreservationsystem.persistence.repository.flight;
+
+import com.aua.flightreservationsystem.core.flight.Flight;
 
 import java.util.List;
 import java.util.Optional;

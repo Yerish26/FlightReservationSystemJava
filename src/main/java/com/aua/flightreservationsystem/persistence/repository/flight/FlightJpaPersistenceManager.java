@@ -1,7 +1,6 @@
 package com.aua.flightreservationsystem.persistence.repository.flight;
 
 import com.aua.flightreservationsystem.core.flight.Flight;
-import com.aua.flightreservationsystem.core.flight.FlightPersistenceManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

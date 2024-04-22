@@ -1,6 +1,7 @@
 package com.aua.flightreservationsystem.core.flight;
 
 import com.aua.flightreservationsystem.core.flight.exceptions.FlightAlreadyExistsException;
+import com.aua.flightreservationsystem.persistence.repository.flight.FlightPersistenceManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

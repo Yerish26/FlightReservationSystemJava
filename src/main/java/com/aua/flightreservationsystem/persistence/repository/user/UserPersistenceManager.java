@@ -1,4 +1,6 @@
-package com.aua.flightreservationsystem.core.user;
+package com.aua.flightreservationsystem.persistence.repository.user;
+
+import com.aua.flightreservationsystem.core.user.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,7 +10,9 @@ public interface UserPersistenceManager {
 
     Optional<User> findById(Long id);
 
-    User saveCustomer(User customer);
+    Optional<User> findByUsername(String username);
+
+    User save(User customer);
 
     void deleteCustomer(Long customerId);
 }

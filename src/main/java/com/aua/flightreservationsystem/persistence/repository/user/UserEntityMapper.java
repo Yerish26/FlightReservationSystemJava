@@ -1,30 +1,31 @@
 package com.aua.flightreservationsystem.persistence.repository.user;
 
 import com.aua.flightreservationsystem.core.user.User;
-import com.aua.flightreservationsystem.persistence.model.CustomerEntity;
+import com.aua.flightreservationsystem.persistence.model.UserEntity;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserEntityMapper {
-    public User map(CustomerEntity customerEntity) {
+    public User map(UserEntity userEntity) {
         return User.builder()
-                .customerId(customerEntity.getCustomerId())
-                .firstName(customerEntity.getFirstName())
-                .lastName(customerEntity.getLastName())
-                .username(customerEntity.getUsername())
-                .password(customerEntity.getPassword())
-                .role(customerEntity.getRole())
+                .id(userEntity.getId())
+                .username(userEntity.getUsername())
+                .password(userEntity.getPassword())
+                .firstName(userEntity.getFirstName())
+                .lastName(userEntity.getLastName())
+                .role(userEntity.getRole())
                 .build();
     }
 
-    public CustomerEntity map(User customer) {
-        CustomerEntity customerEntity = new CustomerEntity();
-        customerEntity.setCustomerId(customer.getCustomerId());
-        customerEntity.setFirstName(customer.getFirstName());
-        customerEntity.setLastName(customer.getLastName());
-        customerEntity.setUsername(customer.getUsername());
-        customerEntity.setPassword(customer.getPassword());
-        customerEntity.setRole(customer.getRole());
-        return customerEntity;
+    public UserEntity map(User user) {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setId(user.getId());
+        userEntity.setUsername(user.getUsername());
+        userEntity.setPassword(user.getPassword());
+        userEntity.setFirstName(user.getFirstName());
+        userEntity.setLastName(user.getLastName());
+        userEntity.setRole(user.getRole());
+
+        return userEntity;
     }
 }

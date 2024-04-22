@@ -1,6 +1,6 @@
 package com.aua.flightreservationsystem.core.jwt;
 
-import com.aua.flightreservationsystem.persistence.model.CustomerEntity;
+import com.aua.flightreservationsystem.persistence.model.UserEntity;
 import lombok.Builder;
 import lombok.Value;
 
@@ -10,6 +10,5 @@ public class Token {
     Long tokenId;
     String token;
     boolean loggedOut;
-    CustomerEntity customer;
-
+    UserEntity customer;
 }

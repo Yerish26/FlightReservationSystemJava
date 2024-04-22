@@ -19,6 +19,6 @@ public class TokenEntity {
     private boolean loggedOut;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private CustomerEntity customer;
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 }

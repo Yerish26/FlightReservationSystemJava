@@ -10,13 +10,13 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "customer")
+@Table(name = "user")
 @Data
-public class CustomerEntity implements UserDetails {
+public class UserEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customer_id")
-    private Long customerId;
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "first_name")
     private String firstName;

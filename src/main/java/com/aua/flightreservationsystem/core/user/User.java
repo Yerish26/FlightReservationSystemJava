@@ -7,7 +7,7 @@ import lombok.Value;
 @Value
 @Builder
 public class User {
-    Long customerId;
+    Long id;
     String firstName;
     String lastName;
     String username;
