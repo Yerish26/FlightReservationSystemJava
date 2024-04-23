@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class AuthenticationController {
+public class UserController {
     private final AuthenticationService authenticationService;
     private final UserApiMapper userApiMapper;
 
-    public AuthenticationController(AuthenticationService authenticationService, UserApiMapper userApiMapper) {
+    public UserController(AuthenticationService authenticationService, UserApiMapper userApiMapper) {
         this.authenticationService = authenticationService;
         this.userApiMapper = userApiMapper;
     }
