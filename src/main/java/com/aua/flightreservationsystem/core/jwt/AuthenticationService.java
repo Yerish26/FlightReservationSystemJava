@@ -41,22 +41,16 @@ public class AuthenticationService {
         this.userEntityMapper = userEntityMapper;
     }
 
-    public AuthenticationResponse register(User request) {
+    public AuthenticationResponse register(User user) {
 
         // check if user already exist. if exist than authenticate the user
-        if (userPersistenceManager.findByUsername(request.getUsername()).isPresent()) {
+        if (userPersistenceManager.findByUsername(user.getUsername()).isPresent()) {
             return new AuthenticationResponse(null, "User already exist");
         }
 
-        // TODO transform it into UserApiMapper
-        UserEntity userEntity = new UserEntity();
-        userEntity.setFirstName(request.getFirstName());
-        userEntity.setLastName(request.getLastName());
-        userEntity.setUsername(request.getUsername());
-        userEntity.setPassword(passwordEncoder.encode(request.getPassword()));
+        User newUser = user.toBuilder().password(this.passwordEncoder.encode(user.getPassword())).build();
 
-
-        userEntity.setRole(request.getRole());
+        UserEntity userEntity = userEntityMapper.map(newUser);
 
         User savedUser = userPersistenceManager.save(userEntityMapper.map(userEntity));
 
