@@ -49,14 +49,14 @@ public class AuthenticationService {
         }
 
         // TODO transform it into UserApiMapper
-        UserEntity userEntity = new UserEntity();
-        userEntity.setFirstName(request.getFirstName());
-        userEntity.setLastName(request.getLastName());
-        userEntity.setUsername(request.getUsername());
-        userEntity.setPassword(passwordEncoder.encode(request.getPassword()));
-
-
-        userEntity.setRole(request.getRole());
+        UserEntity userEntity = userEntityMapper.map(request);
+//        userEntity.setFirstName(request.getFirstName());
+//        userEntity.setLastName(request.getLastName());
+//        userEntity.setUsername(request.getUsername());
+//        userEntity.setPassword(passwordEncoder.encode(request.getPassword()));
+//
+//
+//        userEntity.setRole(request.getRole());
 
         User savedUser = userPersistenceManager.save(userEntityMapper.map(userEntity));
 
