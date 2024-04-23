@@ -11,7 +11,7 @@ public class TokenEntityMapper {
                 .tokenId(tokenEntity.getTokenId())
                 .loggedOut(tokenEntity.isLoggedOut())
                 .token(tokenEntity.getToken())
-                .customer(tokenEntity.getUser())
+                .user(tokenEntity.getUser())
                 .build();
     }
 
@@ -20,7 +20,7 @@ public class TokenEntityMapper {
         tokenEntity.setTokenId(token.getTokenId());
         tokenEntity.setLoggedOut(token.isLoggedOut());
         tokenEntity.setToken(token.getToken());
-        tokenEntity.setUser(token.getCustomer());
+        tokenEntity.setUser(token.getUser());
         return tokenEntity;
     }
 }

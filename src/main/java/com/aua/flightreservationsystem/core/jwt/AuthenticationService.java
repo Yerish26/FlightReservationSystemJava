@@ -44,10 +44,11 @@ public class AuthenticationService {
     public AuthenticationResponse register(User request) {
 
         // check if user already exist. if exist than authenticate the user
-        if(userPersistenceManager.findByUsername(request.getUsername()).isPresent()) {
+        if (userPersistenceManager.findByUsername(request.getUsername()).isPresent()) {
             return new AuthenticationResponse(null, "User already exist");
         }
 
+        // TODO transform it into UserApiMapper
         UserEntity userEntity = new UserEntity();
         userEntity.setFirstName(request.getFirstName());
         userEntity.setLastName(request.getLastName());
@@ -84,23 +85,27 @@ public class AuthenticationService {
         return new AuthenticationResponse(jwt, "User login was successful");
 
     }
+
     private void revokeAllTokenByUser(User user) {
         List<Token> validTokens = tokenPersistenceManager.findAllTokensByUser(user.getId());
-        if(validTokens.isEmpty()) {
+        if (validTokens.isEmpty()) {
             return;
         }
 
-        validTokens.forEach(t-> {
-//            t.setLoggedOut(true);
-        });
+        validTokens.forEach(t ->
+            t.toBuilder().loggedOut(false).build()
+        );
 
         tokenPersistenceManager.saveAll(validTokens);
     }
+
     private void saveUserToken(String jwt, User user) {
-//        Token token = new Token();
-//        token.setToken(jwt);
-//        token.setLoggedOut(false);
-//        token.setUser(user);
-//        tokenRepository.save(token);
+        Token token = Token.builder()
+                .token(jwt)
+                .loggedOut(false)
+                .user(userEntityMapper.map(user))
+                .build();
+
+        tokenPersistenceManager.save(token);
     }
 }

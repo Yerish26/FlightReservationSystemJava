@@ -36,8 +36,8 @@ public class TokenJpaPersistenceManager implements TokenPersistenceManager {
     }
 
     @Override
-    public Token saveToken(Token token) {
-        return tokenEntityMapper.map(tokenRepository.save(tokenEntityMapper.map(token)));
+    public void save(Token token) {
+        tokenRepository.save(tokenEntityMapper.map(token));
     }
 
     @Override
@@ -49,6 +49,4 @@ public class TokenJpaPersistenceManager implements TokenPersistenceManager {
     public void deleteToken(Long tokenId) {
         tokenRepository.deleteById(tokenId);
     }
-
-
 }

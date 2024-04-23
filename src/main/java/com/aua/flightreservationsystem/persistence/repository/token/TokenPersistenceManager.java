@@ -13,7 +13,7 @@ public interface TokenPersistenceManager {
 
     Optional<Token> findById(Long id);
 
-    Token saveToken(Token token);
+    void save(Token token);
 
 
     void saveAll(List<Token> tokens);
