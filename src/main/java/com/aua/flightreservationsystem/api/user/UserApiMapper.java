@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface UserApiMapper {
 
-    UserResponse map(AuthenticationResponse response);
+    LoginResponse map(AuthenticationResponse response);
 
     User map(UserRequest userRequest);
 

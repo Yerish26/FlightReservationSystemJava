@@ -23,14 +23,14 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserResponse> register(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<Void> register(@RequestBody UserRequest userRequest) {
         User user = userApiMapper.map(userRequest);
-        AuthenticationResponse authenticationResponse = authenticationService.register(user);
-        return ResponseEntity.ok(userApiMapper.map(authenticationResponse));
+        authenticationService.register(user);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserResponse> login(@RequestBody UserRequest userRequest) throws UsernameNotFoundException {
+    public ResponseEntity<LoginResponse> login(@RequestBody UserRequest userRequest) throws UsernameNotFoundException {
         User user = userApiMapper.map(userRequest);
         AuthenticationResponse authenticationResponse = authenticationService.authenticate(user);
         return ResponseEntity.ok(userApiMapper.map(authenticationResponse));
