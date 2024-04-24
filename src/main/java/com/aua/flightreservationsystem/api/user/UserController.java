@@ -7,6 +7,7 @@ import com.aua.flightreservationsystem.core.user.exceptions.UsernameNotFoundExce
 import com.aua.flightreservationsystem.persistence.model.AuthenticationResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,14 +25,14 @@ public class UserController {
 
     // TODO error throwing should be handled and added to the requests
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<Void> register(@RequestBody UserRequest userRequest) throws UsernameAlreadyExistsException {
         User user = userApiMapper.map(userRequest);
         authenticationService.register(user);
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody UserRequest userRequest) throws UsernameNotFoundException {
+    public ResponseEntity<LoginResponse> login(@RequestBody UserRequest userRequest) throws UsernameNotFoundException, AuthenticationException {
         User user = userApiMapper.map(userRequest);
         AuthenticationResponse authenticationResponse = authenticationService.authenticate(user);
         return ResponseEntity.ok(userApiMapper.map(authenticationResponse));
@@ -40,13 +41,18 @@ public class UserController {
 
     @ExceptionHandler(UsernameAlreadyExistsException.class)
     ResponseEntity<String> handleUsernameAlreadyExistsExceptions(UsernameAlreadyExistsException usernameAlreadyExistsException) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(usernameAlreadyExistsException.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(usernameAlreadyExistsException.getMessage());
     }
 
 
     @ExceptionHandler(UsernameNotFoundException.class)
     ResponseEntity<String> handleUsernameNotFoundExceptions(UsernameNotFoundException usernameNotFoundException) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(usernameNotFoundException.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(usernameNotFoundException.getMessage());
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    ResponseEntity<String> handleAuthenticationException(AuthenticationException authenticationException) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(authenticationException.getMessage());
     }
 
 }
