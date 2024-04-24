@@ -22,6 +22,7 @@ public class UserController {
         this.userApiMapper = userApiMapper;
     }
 
+    // TODO error throwing should be handled and added to the requests
     @PostMapping("/register")
     public ResponseEntity<Void> register(@RequestBody UserRequest userRequest) {
         User user = userApiMapper.map(userRequest);

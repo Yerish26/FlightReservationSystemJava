@@ -41,11 +41,12 @@ public class AuthenticationService {
         this.userEntityMapper = userEntityMapper;
     }
 
-    public AuthenticationResponse register(User user) {
+    public void register(User user) {
 
         // check if user already exist. if exist than authenticate the user
         if (userPersistenceManager.findByUsername(user.getUsername()).isPresent()) {
-            return new AuthenticationResponse(null, "User already exist");
+            // TODO this should throw an error
+            return;
         }
 
         User newUser = user.toBuilder().password(this.passwordEncoder.encode(user.getPassword())).build();
@@ -57,8 +58,6 @@ public class AuthenticationService {
         String jwt = jwtService.generateToken(savedUser);
 
         saveUserToken(jwt, savedUser);
-
-        return new AuthenticationResponse(jwt, "User registration was successful");
 
     }
 
