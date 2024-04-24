@@ -48,7 +48,6 @@ public class AuthenticationService {
 
         // check if user already exist. if exist than authenticate the user
         if (userPersistenceManager.findByUsername(user.getUsername()).isPresent()) {
-            // TODO this should throw an error
             throw new UsernameAlreadyExistsException(user.getUsername());
         }
 
