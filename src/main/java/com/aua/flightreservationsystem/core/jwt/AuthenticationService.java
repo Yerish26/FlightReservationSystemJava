@@ -1,6 +1,8 @@
 package com.aua.flightreservationsystem.core.jwt;
 
 import com.aua.flightreservationsystem.core.user.User;
+import com.aua.flightreservationsystem.core.user.exceptions.UsernameAlreadyExistsException;
+import com.aua.flightreservationsystem.core.user.exceptions.UsernameNotFoundException;
 import com.aua.flightreservationsystem.persistence.model.AuthenticationResponse;
 import com.aua.flightreservationsystem.persistence.model.UserEntity;
 import com.aua.flightreservationsystem.persistence.repository.token.TokenPersistenceManager;
@@ -8,6 +10,7 @@ import com.aua.flightreservationsystem.persistence.repository.user.UserEntityMap
 import com.aua.flightreservationsystem.persistence.repository.user.UserPersistenceManager;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -41,12 +44,11 @@ public class AuthenticationService {
         this.userEntityMapper = userEntityMapper;
     }
 
-    public void register(User user) {
+    public void register(User user) throws UsernameAlreadyExistsException {
 
         // check if user already exist. if exist than authenticate the user
         if (userPersistenceManager.findByUsername(user.getUsername()).isPresent()) {
-            // TODO this should throw an error
-            return;
+            throw new UsernameAlreadyExistsException(user.getUsername());
         }
 
         User newUser = user.toBuilder().password(this.passwordEncoder.encode(user.getPassword())).build();
@@ -61,7 +63,7 @@ public class AuthenticationService {
 
     }
 
-    public AuthenticationResponse authenticate(User request) {
+    public AuthenticationResponse authenticate(User request) throws UsernameNotFoundException, AuthenticationException {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
@@ -69,7 +71,8 @@ public class AuthenticationService {
                 )
         );
 
-        User user = userPersistenceManager.findByUsername(request.getUsername()).orElseThrow();
+        User user = userPersistenceManager.findByUsername(request.getUsername())
+                .orElseThrow(() ->new UsernameNotFoundException(request.getUsername()));
         String jwt = jwtService.generateToken(user);
 
         revokeAllTokenByUser(user);
