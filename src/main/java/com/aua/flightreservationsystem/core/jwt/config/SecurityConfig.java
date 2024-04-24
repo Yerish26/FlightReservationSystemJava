@@ -2,6 +2,7 @@ package com.aua.flightreservationsystem.core.jwt.config;
 
 import com.aua.flightreservationsystem.core.jwt.filter.JwtAuthenticationFilter;
 import com.aua.flightreservationsystem.core.user.UserDetailsServiceImp;
+import com.aua.flightreservationsystem.persistence.model.Role;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -39,9 +40,9 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
-                        req->req.requestMatchers("/login/**","/register/**")
+                        req->req.requestMatchers("/login/**","/register/**","/register_admin/**")
                                 .permitAll()
-                                .requestMatchers("/admin_only/**").hasAuthority("ADMIN")
+                                .requestMatchers("/admin_only/**").hasAuthority(Role.ADMIN.toString())
                                 .anyRequest()
                                 .authenticated()
                 ).userDetailsService(userDetailsServiceImp)
@@ -50,7 +51,7 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(
                         e->e.accessDeniedHandler(
-                                        (request, response, accessDeniedException)->response.setStatus(403)
+                                        (request, response, accessDeniedException)->response.setStatus(HttpStatus.FORBIDDEN.value())
                                 )
                                 .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .logout(l->l

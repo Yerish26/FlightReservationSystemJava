@@ -10,6 +10,4 @@ public interface UserApiMapper {
     LoginResponse map(AuthenticationResponse response);
 
     User map(UserRequest userRequest);
-
-    User map(String token);
 }

@@ -5,6 +5,7 @@ import com.aua.flightreservationsystem.core.user.User;
 import com.aua.flightreservationsystem.core.user.exceptions.UsernameAlreadyExistsException;
 import com.aua.flightreservationsystem.core.user.exceptions.UsernameNotFoundException;
 import com.aua.flightreservationsystem.persistence.model.AuthenticationResponse;
+import com.aua.flightreservationsystem.persistence.model.Role;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
@@ -23,11 +24,29 @@ public class UserController {
         this.userApiMapper = userApiMapper;
     }
 
+    public ResponseEntity<Void> registerUser(@RequestBody UserRequest userRequest, Role role) throws UsernameAlreadyExistsException {
+        User user = userApiMapper.map(userRequest);
+        User adminUser = user.toBuilder().role(role).build();
+        authenticationService.register(adminUser);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
+    }
+
+    // TODO this should be hidden some other way for it to be completely secure
+    //  but for this current purpose it is fine
+    // or done by migration or the project setup
+    @PostMapping("/register_admin")
+    public ResponseEntity<Void> registerAdmin(@RequestBody UserRequest userRequest) throws UsernameAlreadyExistsException {
+        return registerUser(userRequest, Role.ADMIN);
+    }
+
+    @PostMapping("/admin_only/register_employee")
+    public ResponseEntity<Void> registerEmployee(@RequestBody UserRequest userRequest) throws UsernameAlreadyExistsException {
+        return registerUser(userRequest, Role.EMPLOYEE);
+    }
+
     @PostMapping("/register")
     public ResponseEntity<Void> register(@RequestBody UserRequest userRequest) throws UsernameAlreadyExistsException {
-        User user = userApiMapper.map(userRequest);
-        authenticationService.register(user);
-        return ResponseEntity.status(HttpStatus.OK).body(null);
+        return registerUser(userRequest, Role.CUSTOMER);
     }
 
     @PostMapping("/login")
