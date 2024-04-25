@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserJpaPersistenceManager implements UserPersistenceManager {
@@ -26,7 +27,7 @@ public class UserJpaPersistenceManager implements UserPersistenceManager {
     }
 
     @Override
-    public Optional<User> findById(Long id) {
+    public Optional<User> findById(UUID id) {
         return userRepository.findById(id).map(userEntityMapper::map);
     }
 
@@ -42,7 +43,7 @@ public class UserJpaPersistenceManager implements UserPersistenceManager {
     }
 
     @Override
-    public void deleteUser(Long customerId) {
-        userRepository.deleteById(customerId);
+    public void deleteUser(UUID id) {
+        userRepository.deleteById(id);
     }
 }

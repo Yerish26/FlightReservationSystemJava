@@ -6,18 +6,14 @@ import lombok.Data;
 import java.util.UUID;
 
 @Entity
-@Table(name = "admin")
+@Table(name = "airline")
 @Data
-public class AdminEntity {
+public class AirlineEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id")
     private UUID id;
 
-    @Enumerated
-    @Column(name = "role_in_company")
-    private RoleInCompany roleInCompany;
-
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
+    @Column(name = "name")
+    private String name;
 }

@@ -5,14 +5,13 @@ import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 
 import java.util.Date;
+import java.util.UUID;
 
 
 @Value
 @Builder
 @Jacksonized
 public class FlightResponse {
-    Long flightId;
-    String source;
-    String destination;
+    UUID id;
     Date date;
 }

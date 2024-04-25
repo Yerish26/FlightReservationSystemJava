@@ -7,7 +7,7 @@ import lombok.Data;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-@Table(name = "user")
+@Table(name = "employee")
 @Data
 public class EmployeeEntity {
     @Id
@@ -20,4 +20,9 @@ public class EmployeeEntity {
 
     @Column(name = "contact")
     String contact;
+
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 }

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,10 +24,10 @@ public class FlightController {
         return ResponseEntity.ok(flightService.getAllFlights().stream().map(flightApiMapper::map).toList());
     }
 
-    @GetMapping("/flights/{flightId}")
-    public ResponseEntity<FlightResponse> getFlightById(@PathVariable Long flightId) throws FlightNotFoundException {
-        Flight flight = flightService.getFlightById(flightId)
-                .orElseThrow(() -> new FlightNotFoundException(flightId));
+    @GetMapping("/flights/{id}")
+    public ResponseEntity<FlightResponse> getFlightById(@PathVariable UUID id) throws FlightNotFoundException {
+        Flight flight = flightService.getFlightById(id)
+                .orElseThrow(() -> new FlightNotFoundException(id));
 
         return ResponseEntity.ok(flightApiMapper.map(flight));
     }
@@ -39,26 +40,26 @@ public class FlightController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedFlight);
     }
 
-    @PutMapping("/flights/{flightId}")
-    public ResponseEntity<Flight> updateFlight(@PathVariable Long flightId, @RequestBody FlightRequest flightRequest) {
+    @PutMapping("/flights/{id}")
+    public ResponseEntity<Flight> updateFlight(@PathVariable UUID id, @RequestBody FlightRequest flightRequest) {
         HttpStatus httpStatus;
-        if (flightService.getFlightById(flightId).isPresent()) {
+        if (flightService.getFlightById(id).isPresent()) {
             httpStatus = HttpStatus.OK;
         } else {
             httpStatus = HttpStatus.CREATED;
         }
 
-        Flight flight = flightApiMapper.map(flightId, flightRequest);
+        Flight flight = flightApiMapper.map(id, flightRequest);
         Flight updateFlight = flightService.updateFlight(flight);
         return ResponseEntity.status(httpStatus).body(updateFlight);
     }
 
-    @DeleteMapping("/flights/{flightId}")
-    public ResponseEntity<Void> deleteFlight(@PathVariable Long flightId) throws FlightNotFoundException {
-        flightService.getFlightById(flightId)
-                .orElseThrow(() -> new FlightNotFoundException(flightId));
+    @DeleteMapping("/flights/{id}")
+    public ResponseEntity<Void> deleteFlight(@PathVariable UUID id) throws FlightNotFoundException {
+        flightService.getFlightById(id)
+                .orElseThrow(() -> new FlightNotFoundException(id));
 
-        flightService.deleteFlight(flightId);
+        flightService.deleteFlight(id);
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 

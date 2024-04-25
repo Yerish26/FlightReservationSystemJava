@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class TokenEntityMapper {
     public Token map(TokenEntity tokenEntity) {
         return Token.builder()
-                .tokenId(tokenEntity.getTokenId())
+                .id(tokenEntity.getId())
                 .loggedOut(tokenEntity.isLoggedOut())
                 .token(tokenEntity.getToken())
                 .user(tokenEntity.getUser())
@@ -17,7 +17,7 @@ public class TokenEntityMapper {
 
     public TokenEntity map(Token token) {
         TokenEntity tokenEntity = new TokenEntity();
-        tokenEntity.setTokenId(token.getTokenId());
+        tokenEntity.setId(token.getId());
         tokenEntity.setLoggedOut(token.isLoggedOut());
         tokenEntity.setToken(token.getToken());
         tokenEntity.setUser(token.getUser());

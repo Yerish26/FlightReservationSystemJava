@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class TokenJpaPersistenceManager implements TokenPersistenceManager {
@@ -26,12 +27,12 @@ public class TokenJpaPersistenceManager implements TokenPersistenceManager {
     }
 
     @Override
-    public List<Token> findAllTokensByUser(Long id) {
+    public List<Token> findAllTokensByUser(UUID id) {
         return tokenRepository.findAllTokensByUserId(id).stream().map(tokenEntityMapper::map).toList();
     }
 
     @Override
-    public Optional<Token> findById(Long id) {
+    public Optional<Token> findById(UUID id) {
         return tokenRepository.findByTokenId(id).map(tokenEntityMapper::map);
     }
 
@@ -46,7 +47,7 @@ public class TokenJpaPersistenceManager implements TokenPersistenceManager {
     }
 
     @Override
-    public void deleteToken(Long tokenId) {
-        tokenRepository.deleteById(tokenId);
+    public void deleteToken(UUID id) {
+        tokenRepository.deleteById(id);
     }
 }

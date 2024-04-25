@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class FlightJpaPersistenceManager implements FlightPersistenceManager {
@@ -27,7 +28,7 @@ public class FlightJpaPersistenceManager implements FlightPersistenceManager {
     }
 
     @Override
-    public Optional<Flight> findById(Long id) {
+    public Optional<Flight> findById(UUID id) {
         return flightRepository.findById(id).map(flightEntityMapper::map);
     }
 
@@ -37,8 +38,8 @@ public class FlightJpaPersistenceManager implements FlightPersistenceManager {
     }
 
     @Override
-    public void deleteFlight(Long flightId) {
-        flightRepository.deleteById(flightId);
+    public void deleteFlight(UUID id) {
+        flightRepository.deleteById(id);
     }
 
 
