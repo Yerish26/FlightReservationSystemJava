@@ -1,7 +1,7 @@
 package com.aua.flightreservationsystem.api.user;
 
 import com.aua.flightreservationsystem.core.user.User;
-import com.aua.flightreservationsystem.persistence.model.AuthenticationResponse;
+import com.aua.flightreservationsystem.core.jwt.AuthenticationResponse;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

@@ -4,7 +4,7 @@ import com.aua.flightreservationsystem.core.jwt.AuthenticationService;
 import com.aua.flightreservationsystem.core.user.User;
 import com.aua.flightreservationsystem.core.user.exceptions.UsernameAlreadyExistsException;
 import com.aua.flightreservationsystem.core.user.exceptions.UsernameNotFoundException;
-import com.aua.flightreservationsystem.persistence.model.AuthenticationResponse;
+import com.aua.flightreservationsystem.core.jwt.AuthenticationResponse;
 import com.aua.flightreservationsystem.persistence.model.Role;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

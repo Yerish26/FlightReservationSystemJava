@@ -3,7 +3,6 @@ package com.aua.flightreservationsystem.core.jwt;
 import com.aua.flightreservationsystem.core.user.User;
 import com.aua.flightreservationsystem.core.user.exceptions.UsernameAlreadyExistsException;
 import com.aua.flightreservationsystem.core.user.exceptions.UsernameNotFoundException;
-import com.aua.flightreservationsystem.persistence.model.AuthenticationResponse;
 import com.aua.flightreservationsystem.persistence.model.UserEntity;
 import com.aua.flightreservationsystem.persistence.repository.token.TokenPersistenceManager;
 import com.aua.flightreservationsystem.persistence.repository.user.UserEntityMapper;

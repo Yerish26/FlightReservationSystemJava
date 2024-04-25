@@ -1,4 +1,4 @@
-package com.aua.flightreservationsystem.persistence.model;
+package com.aua.flightreservationsystem.core.jwt;
 
 import lombok.Data;
 
