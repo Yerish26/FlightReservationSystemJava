@@ -21,7 +21,7 @@ public class UserJpaPersistenceManager implements UserPersistenceManager {
 
 
     @Override
-    public List<User> findAllCustomers() {
+    public List<User> findAllUsers() {
         return userRepository.findAll().stream().map(userEntityMapper::map).toList();
     }
 
@@ -42,7 +42,7 @@ public class UserJpaPersistenceManager implements UserPersistenceManager {
     }
 
     @Override
-    public void deleteCustomer(Long customerId) {
+    public void deleteUser(Long customerId) {
         userRepository.deleteById(customerId);
     }
 }

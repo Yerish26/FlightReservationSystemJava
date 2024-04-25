@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserPersistenceManager {
-    List<User> findAllCustomers();
+    List<User> findAllUsers();
 
     Optional<User> findById(Long id);
 
@@ -14,5 +14,5 @@ public interface UserPersistenceManager {
 
     User save(User customer);
 
-    void deleteCustomer(Long customerId);
+    void deleteUser(Long customerId); //TODO to be removed in the future
 }

@@ -1,9 +1,12 @@
 package com.aua.flightreservationsystem.persistence.repository.user;
 
 import com.aua.flightreservationsystem.core.user.User;
+import com.aua.flightreservationsystem.persistence.model.FullName;
 import com.aua.flightreservationsystem.persistence.model.UserEntity;
 import org.springframework.stereotype.Component;
 
+
+// TODO investigate in the future if there is a better way to write this
 @Component
 public class UserEntityMapper {
     public User map(UserEntity userEntity) {
@@ -11,8 +14,8 @@ public class UserEntityMapper {
                 .id(userEntity.getId())
                 .username(userEntity.getUsername())
                 .password(userEntity.getPassword())
-                .firstName(userEntity.getFirstName())
-                .lastName(userEntity.getLastName())
+                .firstName(userEntity.getFullName().getFirstName())
+                .lastName(userEntity.getFullName().getLastName())
                 .role(userEntity.getRole())
                 .build();
     }
@@ -22,8 +25,7 @@ public class UserEntityMapper {
         userEntity.setId(user.getId());
         userEntity.setUsername(user.getUsername());
         userEntity.setPassword(user.getPassword());
-        userEntity.setFirstName(user.getFirstName());
-        userEntity.setLastName(user.getLastName());
+        userEntity.setFullName(new FullName(user.getFirstName(), user.getLastName()));
         userEntity.setRole(user.getRole());
 
         return userEntity;
