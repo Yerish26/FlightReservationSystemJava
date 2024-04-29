@@ -33,7 +33,7 @@ public class TokenJpaPersistenceManager implements TokenPersistenceManager {
 
     @Override
     public Optional<Token> findById(UUID id) {
-        return tokenRepository.findByTokenId(id).map(tokenEntityMapper::map);
+        return tokenRepository.findById(id).map(tokenEntityMapper::map);
     }
 
     @Override
