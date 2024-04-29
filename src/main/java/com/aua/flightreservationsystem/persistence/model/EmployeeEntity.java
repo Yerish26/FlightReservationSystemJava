@@ -7,6 +7,7 @@ import lombok.Data;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+@Entity
 @Table(name = "employee")
 @Data
 public class EmployeeEntity {

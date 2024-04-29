@@ -3,6 +3,7 @@ package com.aua.flightreservationsystem.persistence.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -20,4 +21,10 @@ public class CityEntity {
     @ManyToOne
     @JoinColumn(name = "country_id")
     private CountryEntity country;
+
+    @OneToMany
+    private List<FlightEntity> flights;
+
+    @OneToOne
+    private AirportEntity airport;
 }
