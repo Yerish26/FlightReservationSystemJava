@@ -7,22 +7,21 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "user")
 @Data
 public class UserEntity implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
-    private Long id;
+    private UUID id;
 
-    @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "last_name")
-    private String lastName;
+    @Embedded
+    private FullName fullName;
 
     @Column(name = "username")
     private String username;
@@ -31,17 +30,15 @@ public class UserEntity implements UserDetails {
     private String password;
 
     @Enumerated(value = EnumType.STRING)
+    @Column(name = "role")
     private Role role;
-
-//    @OneToMany(mappedBy = "customer")
-//    private List<Token> tokens;
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
+    // TODO the following should be researched to be figure out how it us being used in SecurityConfig
     @Override
     public boolean isAccountNonExpired() {
         return true;

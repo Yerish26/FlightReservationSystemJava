@@ -1,7 +1,9 @@
 package com.aua.flightreservationsystem.core.flight.exceptions;
 
-public class FlightNotFoundException extends Exception{
-    public FlightNotFoundException(Long flightId){
-        super("Flight with id " + flightId + " not found");
+import java.util.UUID;
+
+public class FlightNotFoundException extends Exception {
+    public FlightNotFoundException(UUID id) {
+        super("Flight with id " + id.toString() + " not found");
     }
 }

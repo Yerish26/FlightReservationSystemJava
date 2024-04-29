@@ -1,7 +1,9 @@
 package com.aua.flightreservationsystem.core.flight.exceptions;
 
+import java.util.UUID;
+
 public class FlightAlreadyExistsException extends Exception{
-    public FlightAlreadyExistsException(Long flightId){
-        super("The flight with id " + flightId + " already exists");
+    public FlightAlreadyExistsException(UUID id){
+        super("The flight with id " + id.toString() + " already exists");
     }
 }

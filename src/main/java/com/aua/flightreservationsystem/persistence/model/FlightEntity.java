@@ -4,23 +4,30 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name = "flight")
 @Data
 public class FlightEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "flight_id")
-    private Long flightId;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id")
+    private UUID id;
 
-    @Column(name = "source")
-    private String source;
+    @ManyToOne
+    @JoinColumn(name = "source")
+    private CityEntity source;
 
-    @Column(name = "destination")
-    private String destination;
+    @ManyToOne
+    @JoinColumn(name = "destination")
+    private CityEntity destination;
 
-    @Column(name = "date")
-    private Date date;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "time")
+    private Date time;
 
+    @ManyToOne
+    @JoinColumn(name = "airline_id")
+    private AirlineEntity airline;
 }

@@ -6,21 +6,18 @@ import lombok.Data;
 import java.util.UUID;
 
 @Entity
-@Table(name = "token")
+@Table(name = "city")
 @Data
-public class TokenEntity {
+public class CityEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
     private UUID id;
 
-    @Column(name = "token")
-    private String token;
-
-    @Column(name = "logged_out")
-    private boolean loggedOut;
+    @Column(name = "name")
+    private String name;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
+    @JoinColumn(name = "country_id")
+    private CountryEntity country;
 }

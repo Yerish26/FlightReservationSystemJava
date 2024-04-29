@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class FlightService {
@@ -21,13 +22,13 @@ public class FlightService {
         return flightPersistenceManager.findAllFlights();
     }
 
-    public Optional<Flight> getFlightById(Long flightId) {
-        return flightPersistenceManager.findById(flightId);
+    public Optional<Flight> getFlightById(UUID id) {
+        return flightPersistenceManager.findById(id);
     }
 
     public Flight saveFlight(Flight flight) throws FlightAlreadyExistsException {
-        if(flightPersistenceManager.findById(flight.getFlightId()).isPresent()) {
-            throw new FlightAlreadyExistsException(flight.getFlightId());
+        if(flightPersistenceManager.findById(flight.getId()).isPresent()) {
+            throw new FlightAlreadyExistsException(flight.getId());
         }
         return flightPersistenceManager.saveFlight(flight);
     }
@@ -36,8 +37,8 @@ public class FlightService {
         return flightPersistenceManager.saveFlight(flight);
     }
 
-    public void deleteFlight(Long flightId){
-        flightPersistenceManager.deleteFlight(flightId);
+    public void deleteFlight(UUID id){
+        flightPersistenceManager.deleteFlight(id);
     }
 
 }

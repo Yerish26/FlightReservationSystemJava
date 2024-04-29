@@ -6,21 +6,14 @@ import lombok.Data;
 import java.util.UUID;
 
 @Entity
-@Table(name = "token")
+@Table(name = "aircraft_factory")
 @Data
-public class TokenEntity {
+public class AircraftFactoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
     private UUID id;
 
-    @Column(name = "token")
-    private String token;
-
-    @Column(name = "logged_out")
-    private boolean loggedOut;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
+    @Column(name = "modal_name")
+    private String modalName;
 }
