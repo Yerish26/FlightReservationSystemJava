@@ -11,5 +11,4 @@ public interface AdminPersistenceManager {
     Optional<Admin> findById(UUID id);
     Admin saveAdmin(Admin admin);
     void deleteAdmin(UUID id);
-
 }

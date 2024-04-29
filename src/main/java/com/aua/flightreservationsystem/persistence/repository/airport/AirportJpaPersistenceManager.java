@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class AirportJpaPersistenceManager implements AirportPersistenceManager{
+public class AirportJpaPersistenceManager implements AirportPersistenceManager {
     private final AirportRepository airportRepository;
     private final AirportEntityMapper airportEntityMapper;
 

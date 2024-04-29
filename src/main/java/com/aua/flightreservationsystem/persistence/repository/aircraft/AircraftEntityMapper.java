@@ -16,6 +16,7 @@ public class AircraftEntityMapper {
                 .aircraftFactoryId(aircraftEntity.getAircraftFactory().getId())
                 .build();
     }
+
     public AircraftEntity map(Aircraft aircraft) {
         AircraftEntity aircraftEntity = new AircraftEntity();
         aircraftEntity.setId(aircraft.getId());
@@ -23,7 +24,7 @@ public class AircraftEntityMapper {
         aircraftEntity.setNumberOfSeats(aircraft.getNumberOfSeats());
         aircraftEntity.setAircraftFactory(new AircraftFactoryEntity());
 
-        // Check
+        // TODO Check
         AircraftFactoryEntity aircraftFactoryEntity = new AircraftFactoryEntity();
         aircraftFactoryEntity.setId(aircraftFactoryEntity.getId());
         aircraftEntity.setAircraftFactory(aircraftFactoryEntity);
