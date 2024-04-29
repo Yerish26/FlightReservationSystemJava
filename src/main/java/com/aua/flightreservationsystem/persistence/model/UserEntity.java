@@ -7,7 +7,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,6 +31,18 @@ public class UserEntity implements UserDetails {
     @Enumerated(value = EnumType.STRING)
     @Column(name = "role")
     private Role role;
+
+    @OneToMany(mappedBy = "user")
+    private List<TokenEntity> tokens;
+
+    @OneToOne(mappedBy = "user")
+    private AdminEntity adminUser;
+
+    @OneToOne(mappedBy = "user")
+    private EmployeeEntity employeeUser;
+
+    @OneToOne(mappedBy = "user")
+    private CustomerEntity customerUser;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

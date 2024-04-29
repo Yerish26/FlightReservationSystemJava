@@ -3,6 +3,7 @@ package com.aua.flightreservationsystem.persistence.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -16,4 +17,7 @@ public class AircraftFactoryEntity {
 
     @Column(name = "modal_name")
     private String modalName;
+
+    @OneToMany(mappedBy = "aircraftFactory")
+    private List<AircraftEntity> aircrafts;
 }
