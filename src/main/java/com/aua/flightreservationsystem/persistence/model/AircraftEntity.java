@@ -14,8 +14,8 @@ public class AircraftEntity {
     @Column(name = "id")
     private UUID id;
 
-    @Column(name = "modal_name")
-    private String modalName;
+    @Column(name = "model_name")
+    private String modelName;
 
     @Column(name = "number_of_seats")
     private Short numberOfSeats;

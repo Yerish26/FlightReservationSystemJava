@@ -15,8 +15,8 @@ public class AircraftFactoryEntity {
     @Column(name = "id")
     private UUID id;
 
-    @Column(name = "modal_name")
-    private String modalName;
+    @Column(name = "model_name")
+    private String modelName;
 
     @OneToMany(mappedBy = "aircraftFactory")
     private List<AircraftEntity> aircrafts;
