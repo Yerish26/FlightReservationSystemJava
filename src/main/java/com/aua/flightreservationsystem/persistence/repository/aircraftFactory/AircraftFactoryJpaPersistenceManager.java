@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class AircraftFactoryJpaPersistenceManager implements AircraftFactoryPersistenceManager{
+public class AircraftFactoryJpaPersistenceManager implements AircraftFactoryPersistenceManager {
     private final AircraftFactoryRepository aircraftFactoryRepository;
     private final AircraftFactoryEntityMapper aircraftFactoryEntityMapper;
 
