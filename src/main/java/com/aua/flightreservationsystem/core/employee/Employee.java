@@ -1,5 +1,6 @@
 package com.aua.flightreservationsystem.core.employee;
 
+import com.aua.flightreservationsystem.core.user.User;
 import lombok.Builder;
 import lombok.Value;
 
@@ -12,5 +13,5 @@ public class Employee {
     UUID id;
     BigDecimal salary;
     String contact;
-    UUID userId;
+    User user;
 }

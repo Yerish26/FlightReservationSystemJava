@@ -1,5 +1,6 @@
 package com.aua.flightreservationsystem.core.customer;
 
+import com.aua.flightreservationsystem.core.user.User;
 import lombok.Builder;
 import lombok.Value;
 
@@ -11,5 +12,5 @@ import java.util.UUID;
 public class Customer {
     UUID id;
     Date registrationDate;
-    UUID userId;
+    User user;
 }
