@@ -4,8 +4,6 @@ import com.aua.flightreservationsystem.persistence.model.AirlineEntity;
 import com.aua.flightreservationsystem.persistence.repository.flight.FlightEntityMapper;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-
 @Component
 public class AirlineEntityMapper {
     public AirlineEntityMapper(FlightEntityMapper flightEntityMapper) {
