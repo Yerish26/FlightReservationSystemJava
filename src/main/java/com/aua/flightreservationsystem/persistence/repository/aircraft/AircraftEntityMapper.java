@@ -4,16 +4,23 @@ import com.aua.flightreservationsystem.core.aircraft.Aircraft;
 import com.aua.flightreservationsystem.core.aircraftFactory.AircraftFactory;
 import com.aua.flightreservationsystem.persistence.model.AircraftEntity;
 import com.aua.flightreservationsystem.persistence.model.AircraftFactoryEntity;
+import com.aua.flightreservationsystem.persistence.repository.aircraftFactory.AircraftFactoryEntityMapper;
 import org.springframework.stereotype.Component;
 
 @Component
 public class AircraftEntityMapper {
+    private final AircraftFactoryEntityMapper aircraftFactoryEntityMapper;
+
+    public AircraftEntityMapper(AircraftFactoryEntityMapper aircraftFactoryEntityMapper) {
+        this.aircraftFactoryEntityMapper = aircraftFactoryEntityMapper;
+    }
+
     public Aircraft map(AircraftEntity aircraftEntity) {
         return Aircraft.builder()
                 .id(aircraftEntity.getId())
                 .modelName(aircraftEntity.getModelName())
                 .numberOfSeats(aircraftEntity.getNumberOfSeats())
-                .aircraftFactoryId(aircraftEntity.getAircraftFactory().getId())
+                .aircraftFactory(aircraftFactoryEntityMapper.map(aircraftEntity.getAircraftFactory()))
                 .build();
     }
 
@@ -22,13 +29,7 @@ public class AircraftEntityMapper {
         aircraftEntity.setId(aircraft.getId());
         aircraftEntity.setModelName(aircraft.getModelName());
         aircraftEntity.setNumberOfSeats(aircraft.getNumberOfSeats());
-        aircraftEntity.setAircraftFactory(new AircraftFactoryEntity());
-
-        // TODO Check
-        AircraftFactoryEntity aircraftFactoryEntity = new AircraftFactoryEntity();
-        aircraftFactoryEntity.setId(aircraftFactoryEntity.getId());
-        aircraftEntity.setAircraftFactory(aircraftFactoryEntity);
-
+        aircraftEntity.setAircraftFactory(aircraftFactoryEntityMapper.map(aircraft.getAircraftFactory()));
         return aircraftEntity;
     }
 

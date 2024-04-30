@@ -1,5 +1,6 @@
 package com.aua.flightreservationsystem.core.aircraft;
 
+import com.aua.flightreservationsystem.core.aircraftFactory.AircraftFactory;
 import lombok.Builder;
 import lombok.Value;
 
@@ -11,5 +12,5 @@ public class Aircraft {
     UUID id;
     String modelName;
     Short numberOfSeats;
-    UUID aircraftFactoryId;
+    AircraftFactory aircraftFactory;
 }
