@@ -26,8 +26,8 @@ public class UserController {
 
     public ResponseEntity<Void> registerUser(@RequestBody UserRequest userRequest, Role role) throws UsernameAlreadyExistsException {
         User user = userApiMapper.map(userRequest);
-        User adminUser = user.toBuilder().role(role).build();
-        authenticationService.register(adminUser);
+        User createdUser = user.toBuilder().role(role).build();
+        authenticationService.register(createdUser);
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 

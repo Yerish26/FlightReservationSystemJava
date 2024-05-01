@@ -2,9 +2,9 @@ package com.aua.flightreservationsystem.persistence.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+@Data
 @Embeddable
 public class FullName {
     @Column(name = "first_name")
@@ -12,12 +12,4 @@ public class FullName {
 
     @Column(name = "last_name")
     private String lastName;
-
-    public FullName(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    public FullName() {
-    }
 }
