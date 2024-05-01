@@ -21,12 +21,12 @@ public class FlightController {
 
     @GetMapping("/flights")
     public ResponseEntity<List<FlightResponse>> getAllFlights(){
-        return ResponseEntity.ok(flightService.getAllFlights().stream().map(flightApiMapper::map).toList());
+        return ResponseEntity.ok(flightService.getAll().stream().map(flightApiMapper::map).toList());
     }
 
     @GetMapping("/flights/{id}")
     public ResponseEntity<FlightResponse> getFlightById(@PathVariable UUID id) throws FlightNotFoundException {
-        Flight flight = flightService.getFlightById(id)
+        Flight flight = flightService.getById(id)
                 .orElseThrow(() -> new FlightNotFoundException(id));
 
         return ResponseEntity.ok(flightApiMapper.map(flight));
@@ -35,7 +35,7 @@ public class FlightController {
     @PostMapping("/flights")
     public ResponseEntity<Flight> createFlight(@RequestBody FlightRequest flightRequest) throws FlightAlreadyExistsException {
         Flight flight = flightApiMapper.map(flightRequest);
-        Flight savedFlight = flightService.saveFlight(flight);
+        Flight savedFlight = flightService.save(flight);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(savedFlight);
     }
@@ -43,23 +43,23 @@ public class FlightController {
     @PutMapping("/flights/{id}")
     public ResponseEntity<Flight> updateFlight(@PathVariable UUID id, @RequestBody FlightRequest flightRequest) {
         HttpStatus httpStatus;
-        if (flightService.getFlightById(id).isPresent()) {
+        if (flightService.getById(id).isPresent()) {
             httpStatus = HttpStatus.OK;
         } else {
             httpStatus = HttpStatus.CREATED;
         }
 
         Flight flight = flightApiMapper.map(id, flightRequest);
-        Flight updateFlight = flightService.updateFlight(flight);
+        Flight updateFlight = flightService.update(flight);
         return ResponseEntity.status(httpStatus).body(updateFlight);
     }
 
     @DeleteMapping("/flights/{id}")
     public ResponseEntity<Void> deleteFlight(@PathVariable UUID id) throws FlightNotFoundException {
-        flightService.getFlightById(id)
+        flightService.getById(id)
                 .orElseThrow(() -> new FlightNotFoundException(id));
 
-        flightService.deleteFlight(id);
+        flightService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 

@@ -7,8 +7,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface AdminPersistenceManager {
-    List<Admin> findAllAdmins();
+    List<Admin> findAll();
     Optional<Admin> findById(UUID id);
-    Admin saveAdmin(Admin admin);
-    void deleteAdmin(UUID id);
+    Admin save(Admin admin);
+    void delete(UUID id);
 }

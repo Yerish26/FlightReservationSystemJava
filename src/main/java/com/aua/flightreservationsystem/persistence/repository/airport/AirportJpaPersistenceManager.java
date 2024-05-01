@@ -20,22 +20,22 @@ public class AirportJpaPersistenceManager implements AirportPersistenceManager {
     }
 
     @Override
-    public List<Airport> findAllAirports() {
+    public List<Airport> findAll() {
         return airportRepository.findAll().stream().map(airportEntityMapper::map).toList();
     }
 
     @Override
-    public Optional<Airport> findAirportById(UUID id) {
+    public Optional<Airport> findById(UUID id) {
         return airportRepository.findById(id).map(airportEntityMapper::map);
     }
 
     @Override
-    public Airport saveAirport(Airport airport) {
+    public Airport save(Airport airport) {
         return airportEntityMapper.map(airportRepository.save(airportEntityMapper.map(airport)));
     }
 
     @Override
-    public void deleteAirport(UUID id) {
+    public void delete(UUID id) {
         airportRepository.deleteById(id);
     }
 }

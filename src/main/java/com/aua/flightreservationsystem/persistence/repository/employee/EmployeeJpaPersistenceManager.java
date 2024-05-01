@@ -20,7 +20,7 @@ public class EmployeeJpaPersistenceManager implements EmployeePersistenceManager
     }
 
     @Override
-    public List<Employee> findAllEmployees() {
+    public List<Employee> findAll() {
         return employeeRepository.findAll().stream().map(employeeEntityMapper::map).toList();
     }
 
@@ -30,12 +30,12 @@ public class EmployeeJpaPersistenceManager implements EmployeePersistenceManager
     }
 
     @Override
-    public Employee saveEmployee(Employee employee) {
+    public Employee save(Employee employee) {
         return employeeEntityMapper.map(employeeRepository.save(employeeEntityMapper.map(employee)));
     }
 
     @Override
-    public void deleteEmployee(UUID id) {
+    public void delete(UUID id) {
         employeeRepository.deleteById(id);
     }
 }

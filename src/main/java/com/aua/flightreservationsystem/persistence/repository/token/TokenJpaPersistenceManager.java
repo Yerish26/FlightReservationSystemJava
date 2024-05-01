@@ -22,7 +22,7 @@ public class TokenJpaPersistenceManager implements TokenPersistenceManager {
 
 
     @Override
-    public List<Token> findAllTokens() {
+    public List<Token> findAll() {
         return tokenRepository.findAll().stream().map(tokenEntityMapper::map).toList();
     }
 
@@ -47,7 +47,7 @@ public class TokenJpaPersistenceManager implements TokenPersistenceManager {
     }
 
     @Override
-    public void deleteToken(UUID id) {
+    public void delete(UUID id) {
         tokenRepository.deleteById(id);
     }
 }

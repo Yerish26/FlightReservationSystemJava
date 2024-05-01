@@ -7,8 +7,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface CountryPersistenceManager {
-    List<Country> findAllCountries();
+    List<Country> findAll();
     Optional<Country> findById(UUID id);
-    Country saveCountry(Country country);
-    void deleteCountry(UUID id);
+    Country save(Country country);
+    void delete(UUID id);
 }

@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface UserPersistenceManager {
-    List<User> findAllUsers();
+    List<User> findAll();
 
     Optional<User> findById(UUID id);
 
@@ -15,5 +15,5 @@ public interface UserPersistenceManager {
 
     User save(User customer);
 
-    void deleteUser(UUID id); //TODO to be removed in the future
+    void delete(UUID id); //TODO to be removed in the future
 }

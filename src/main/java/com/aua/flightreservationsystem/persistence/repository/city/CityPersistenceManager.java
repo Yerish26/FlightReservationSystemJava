@@ -7,9 +7,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface CityPersistenceManager {
-    List<City> findAllCities();
+    List<City> findAll();
     Optional<City> findById(UUID id);
-    City saveCity(City city);
-    void deleteCity(UUID id);
+    City save(City city);
+    void delete(UUID id);
 
 }

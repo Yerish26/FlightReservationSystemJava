@@ -18,27 +18,27 @@ public class FlightService {
         this.flightPersistenceManager = flightPersistenceManager;
     }
 
-    public List<Flight> getAllFlights() {
-        return flightPersistenceManager.findAllFlights();
+    public List<Flight> getAll() {
+        return flightPersistenceManager.findAll();
     }
 
-    public Optional<Flight> getFlightById(UUID id) {
+    public Optional<Flight> getById(UUID id) {
         return flightPersistenceManager.findById(id);
     }
 
-    public Flight saveFlight(Flight flight) throws FlightAlreadyExistsException {
+    public Flight save(Flight flight) throws FlightAlreadyExistsException {
         if(flightPersistenceManager.findById(flight.getId()).isPresent()) {
             throw new FlightAlreadyExistsException(flight.getId());
         }
-        return flightPersistenceManager.saveFlight(flight);
+        return flightPersistenceManager.save(flight);
     }
 
-    public Flight updateFlight(Flight flight) {
-        return flightPersistenceManager.saveFlight(flight);
+    public Flight update(Flight flight) {
+        return flightPersistenceManager.save(flight);
     }
 
-    public void deleteFlight(UUID id){
-        flightPersistenceManager.deleteFlight(id);
+    public void delete(UUID id){
+        flightPersistenceManager.delete(id);
     }
 
 }
