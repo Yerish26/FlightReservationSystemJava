@@ -1,8 +1,13 @@
 package com.aua.flightreservationsystem.core.jwt;
 
+import com.aua.flightreservationsystem.api.user.*;
+import com.aua.flightreservationsystem.core.admin.Admin;
+import com.aua.flightreservationsystem.core.customer.Customer;
+import com.aua.flightreservationsystem.core.employee.Employee;
 import com.aua.flightreservationsystem.core.user.User;
 import com.aua.flightreservationsystem.core.user.exceptions.UsernameAlreadyExistsException;
 import com.aua.flightreservationsystem.core.user.exceptions.UsernameNotFoundException;
+import com.aua.flightreservationsystem.persistence.model.Role;
 import com.aua.flightreservationsystem.persistence.model.UserEntity;
 import com.aua.flightreservationsystem.persistence.repository.admin.AdminPersistenceManager;
 import com.aua.flightreservationsystem.persistence.repository.customer.CustomerPersistenceManager;
@@ -36,7 +41,14 @@ public class AuthenticationService {
 
     private final UserEntityMapper userEntityMapper;
 
-    public void register(User user) throws UsernameAlreadyExistsException {
+    private User register(UserRequest userRequest, Role role) throws UsernameAlreadyExistsException {
+        User user = User.builder()
+                .role(role)
+                .username(userRequest.getUsername())
+                .password(userRequest.getPassword())
+                .firstName(userRequest.getFirstName())
+                .lastName(userRequest.getLastName())
+                .build();
 
         // check if user already exist. if exist than authenticate the user
         if (userPersistenceManager.findByUsername(user.getUsername()).isPresent()) {
@@ -54,15 +66,43 @@ public class AuthenticationService {
         String jwt = jwtService.generateToken(savedUser);
 
         saveUserToken(jwt, savedUser);
+
+        return savedUser;
     }
 
-    public AuthenticationResponse authenticate(User request) throws UsernameNotFoundException, AuthenticationException {
+    public Admin registerAdmin(AdminRequest adminRequest) throws UsernameAlreadyExistsException {
+        User user = register(adminRequest, Role.ADMIN);
+        Admin admin = Admin.builder()
+                .user(user)
+                .roleInCompany(adminRequest.getRoleInCompany())
+                .build();
+        return adminPersistenceManager.save(admin);
+    }
+
+    public Customer registerCustomer(CustomerRequest customerRequest) throws UsernameAlreadyExistsException {
+        User user = register(customerRequest, Role.CUSTOMER);
+        Customer customer = Customer.builder().user(user).build();
+        return customerPersistenceManager.save(customer);
+    }
+
+    public Employee registerEmployee(EmployeeRequest employeeRequest) throws UsernameAlreadyExistsException {
+        User user = register(employeeRequest, Role.EMPLOYEE);
+        Employee employee = Employee.builder()
+                .user(user)
+                .contact(employeeRequest.getContact())
+                .salary(employeeRequest.getSalary())
+                .build();
+        return employeePersistenceManager.save(employee);
+    }
+
+    public AuthenticationResponse authenticate(LoginRequest loginRequest)
+            throws UsernameNotFoundException, AuthenticationException {
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         User user = userPersistenceManager
-                .findByUsername(request.getUsername())
-                .orElseThrow(() -> new UsernameNotFoundException(request.getUsername()));
+                .findByUsername(loginRequest.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException(loginRequest.getUsername()));
         String jwt = jwtService.generateToken(user);
 
         revokeAllTokenByUser(user);

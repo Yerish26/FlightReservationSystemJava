@@ -34,10 +34,9 @@ public class FlightController {
     @PostMapping("/flights")
     public ResponseEntity<Flight> createFlight(@RequestBody FlightRequest flightRequest)
             throws FlightAlreadyExistsException {
-        Flight flight = flightApiMapper.map(flightRequest);
-        Flight savedFlight = flightService.save(flight);
+        Flight flight = flightService.save(flightRequest);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedFlight);
+        return ResponseEntity.status(HttpStatus.CREATED).body(flight);
     }
 
     @PutMapping("/flights/{id}")

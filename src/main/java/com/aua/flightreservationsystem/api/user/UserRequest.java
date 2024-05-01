@@ -1,15 +1,13 @@
 package com.aua.flightreservationsystem.api.user;
 
-import lombok.Builder;
-import lombok.Value;
-import lombok.extern.jackson.Jacksonized;
+import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
-@Value
-@Builder
-@Jacksonized
-public class UserRequest {
-    String username;
-    String password;
-    String firstName;
-    String lastName;
+@SuperBuilder
+@Data
+public abstract class UserRequest {
+    protected String username;
+    protected String password;
+    protected String firstName;
+    protected String lastName;
 }

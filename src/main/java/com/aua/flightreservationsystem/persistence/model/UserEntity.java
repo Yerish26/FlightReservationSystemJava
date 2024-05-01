@@ -3,20 +3,17 @@ package com.aua.flightreservationsystem.persistence.model;
 import jakarta.persistence.*;
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "user")
 @Data
-public class UserEntity implements UserDetails {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id")
-    private UUID id;
+public class UserEntity extends BaseEntity implements UserDetails {
 
     @Embedded
     private FullName fullName;

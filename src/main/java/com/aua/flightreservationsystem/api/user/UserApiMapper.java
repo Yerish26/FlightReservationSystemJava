@@ -1,13 +1,22 @@
 package com.aua.flightreservationsystem.api.user;
 
+import com.aua.flightreservationsystem.core.admin.Admin;
+import com.aua.flightreservationsystem.core.customer.Customer;
+import com.aua.flightreservationsystem.core.employee.Employee;
 import com.aua.flightreservationsystem.core.jwt.AuthenticationResponse;
-import com.aua.flightreservationsystem.core.user.User;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface UserApiMapper {
-
     LoginResponse map(AuthenticationResponse response);
 
-    User map(UserRequest userRequest);
+    @Mapping(target = "name", source = "admin.user.username")
+    UserResponse map(Admin admin);
+
+    @Mapping(target = "name", source = "employee.user.username")
+    UserResponse map(Employee employee);
+
+    @Mapping(target = "name", source = "customer.user.username")
+    UserResponse map(Customer customer);
 }
