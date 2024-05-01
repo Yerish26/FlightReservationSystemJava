@@ -1,11 +1,21 @@
 package com.aua.flightreservationsystem.persistence.repository.user;
 
 import com.aua.flightreservationsystem.core.user.User;
+import com.aua.flightreservationsystem.persistence.model.FullName;
 import com.aua.flightreservationsystem.persistence.model.UserEntity;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface UserEntityMapper {
+
+    @Mapping(target = "firstName", source = "userEntity.fullName.firstName")
+    @Mapping(target = "lastName", source = "userEntity.fullName.lastName")
     User map(UserEntity userEntity);
+
+    FullName map(String firstName, String lastName);
+
+    @Mapping(target = "fullName.firstName", source = "firstName")
+    @Mapping(target = "fullName.lastName", source = "lastName")
     UserEntity map(User user);
 }
