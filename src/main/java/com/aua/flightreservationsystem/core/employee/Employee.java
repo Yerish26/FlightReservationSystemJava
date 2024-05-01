@@ -1,16 +1,17 @@
-package com.aua.flightreservationsystem.core.jwt;
+package com.aua.flightreservationsystem.core.employee;
 
 import com.aua.flightreservationsystem.core.user.User;
 import lombok.Builder;
 import lombok.Value;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Value
 @Builder(toBuilder = true)
-public class Token {
+public class Employee {
     UUID id;
-    String token;
-    boolean loggedOut;
+    BigDecimal salary;
+    String contact;
     User user;
 }

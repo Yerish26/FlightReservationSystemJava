@@ -98,7 +98,7 @@ public class AuthenticationService {
         Token token = Token.builder()
                 .token(jwt)
                 .loggedOut(false)
-                .user(userEntityMapper.map(user))
+                .user(user)
                 .build();
 
         tokenPersistenceManager.save(token);

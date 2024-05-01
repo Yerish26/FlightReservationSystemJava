@@ -1,0 +1,42 @@
+package com.aua.flightreservationsystem.persistence.repository.country;
+
+import com.aua.flightreservationsystem.core.country.Country;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+@Service
+public class CountryJpaPersistenceManager implements CountryPersistenceManager {
+
+    private final CountryRepository countryRepository;
+    private final CountryEntityMapper countryEntityMapper;
+
+    @Autowired
+    public CountryJpaPersistenceManager(CountryRepository countryRepository, CountryEntityMapper countryEntityMapper) {
+        this.countryRepository = countryRepository;
+        this.countryEntityMapper = countryEntityMapper;
+    }
+
+    @Override
+    public List<Country> findAllCountries() {
+        return countryRepository.findAll().stream().map(countryEntityMapper::map).toList();
+    }
+
+    @Override
+    public Optional<Country> findById(UUID id) {
+        return countryRepository.findById(id).map(countryEntityMapper::map);
+    }
+
+    @Override
+    public Country saveCountry(Country country) {
+        return countryEntityMapper.map(countryRepository.save(countryEntityMapper.map(country)));
+    }
+
+    @Override
+    public void deleteCountry(UUID id) {
+        countryRepository.deleteById(id);
+    }
+}

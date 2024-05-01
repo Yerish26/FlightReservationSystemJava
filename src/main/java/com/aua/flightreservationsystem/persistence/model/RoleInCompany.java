@@ -1,7 +1,7 @@
 package com.aua.flightreservationsystem.persistence.model;
 
 // this is for giving the employee an admin account to test stuff like admin
-enum RoleInCompany {
+public enum RoleInCompany {
     MANGER,
     EMPLOYEE
 }

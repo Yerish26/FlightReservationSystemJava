@@ -1,6 +1,7 @@
-package com.aua.flightreservationsystem.core.jwt;
+package com.aua.flightreservationsystem.core.admin;
 
 import com.aua.flightreservationsystem.core.user.User;
+import com.aua.flightreservationsystem.persistence.model.RoleInCompany;
 import lombok.Builder;
 import lombok.Value;
 
@@ -8,9 +9,8 @@ import java.util.UUID;
 
 @Value
 @Builder(toBuilder = true)
-public class Token {
+public class Admin {
     UUID id;
-    String token;
-    boolean loggedOut;
+    RoleInCompany roleInCompany;
     User user;
 }
