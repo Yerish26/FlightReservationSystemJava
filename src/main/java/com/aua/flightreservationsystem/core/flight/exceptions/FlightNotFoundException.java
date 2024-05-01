@@ -4,6 +4,6 @@ import java.util.UUID;
 
 public class FlightNotFoundException extends Exception {
     public FlightNotFoundException(UUID id) {
-        super("Flight with id " + id.toString() + " not found");
+        super("Flight with id " + id.toString() + " is not found");
     }
 }
