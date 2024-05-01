@@ -4,9 +4,13 @@ import com.aua.flightreservationsystem.core.user.User;
 import com.aua.flightreservationsystem.core.user.exceptions.UsernameAlreadyExistsException;
 import com.aua.flightreservationsystem.core.user.exceptions.UsernameNotFoundException;
 import com.aua.flightreservationsystem.persistence.model.UserEntity;
+import com.aua.flightreservationsystem.persistence.repository.admin.AdminPersistenceManager;
+import com.aua.flightreservationsystem.persistence.repository.customer.CustomerPersistenceManager;
+import com.aua.flightreservationsystem.persistence.repository.employee.EmployeePersistenceManager;
 import com.aua.flightreservationsystem.persistence.repository.token.TokenPersistenceManager;
 import com.aua.flightreservationsystem.persistence.repository.user.UserEntityMapper;
 import com.aua.flightreservationsystem.persistence.repository.user.UserPersistenceManager;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -15,10 +19,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class AuthenticationService {
 
     private final UserPersistenceManager userPersistenceManager;
+    private final AdminPersistenceManager adminPersistenceManager;
+    private final CustomerPersistenceManager customerPersistenceManager;
+    private final EmployeePersistenceManager employeePersistenceManager;
+
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
 
@@ -28,20 +37,7 @@ public class AuthenticationService {
 
     private final UserEntityMapper userEntityMapper;
 
-    public AuthenticationService(UserPersistenceManager userPersistenceManager,
-                                 PasswordEncoder passwordEncoder,
-                                 JwtService jwtService,
-                                 TokenPersistenceManager tokenPersistanceManager,
-                                 AuthenticationManager authenticationManager,
-                                 UserEntityMapper userEntityMapper
-    ) {
-        this.userPersistenceManager = userPersistenceManager;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtService = jwtService;
-        this.tokenPersistenceManager = tokenPersistanceManager;
-        this.authenticationManager = authenticationManager;
-        this.userEntityMapper = userEntityMapper;
-    }
+
 
     public void register(User user) throws UsernameAlreadyExistsException {
 

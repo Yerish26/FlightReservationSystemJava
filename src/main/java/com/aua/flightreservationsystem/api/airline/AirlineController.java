@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/airline")
+@RequestMapping("/admin_employee/airline")
 public class AirlineController {
     final private AirlineApiMapper airlineApiMapper;
     final private AirlineService airlineService;
