@@ -13,6 +13,8 @@ public interface AirlineApiMapper {
 
     List<Flight> map(List<UUID> flightsIds);
 
+    Flight map(UUID flightsId);
+
     Airline map(AirlineRequest airlineRequest);
 
     Airline map(UUID id, AirlineRequest airlineRequest);

@@ -22,12 +22,12 @@ public class AirlineController {
     
     @GetMapping("/")
     public ResponseEntity<List<AirlineResponse>> getAllAirlines(){
-        return ResponseEntity.ok(airlineService.getAllAirlines().stream().map(airlineApiMapper::map).toList());
+        return ResponseEntity.ok(airlineService.getAll().stream().map(airlineApiMapper::map).toList());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<AirlineResponse> getAirlineById(@PathVariable UUID id) throws AirlineNotFoundException {
-        Airline airline = airlineService.getAirlineById(id)
+        Airline airline = airlineService.getById(id)
                 .orElseThrow(() -> new AirlineNotFoundException(id));
 
         return ResponseEntity.ok(airlineApiMapper.map(airline));
@@ -44,7 +44,7 @@ public class AirlineController {
     @PutMapping("/{id}")
     public ResponseEntity<AirlineResponse> updateAirline(@PathVariable UUID id, @RequestBody AirlineRequest airlineRequest) {
         HttpStatus httpStatus;
-        if (airlineService.getAirlineById(id).isPresent()) {
+        if (airlineService.getById(id).isPresent()) {
             httpStatus = HttpStatus.OK;
         } else {
             httpStatus = HttpStatus.CREATED;
@@ -57,7 +57,7 @@ public class AirlineController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAirline(@PathVariable UUID id) throws AirlineNotFoundException {
-        airlineService.getAirlineById(id)
+        airlineService.getById(id)
                 .orElseThrow(() -> new AirlineNotFoundException(id));
 
         airlineService.delete(id);

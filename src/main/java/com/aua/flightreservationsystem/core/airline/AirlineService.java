@@ -19,27 +19,27 @@ public class AirlineService {
         this.airlinePersistenceManager = airlinePersistenceManager;
     }
 
-    public List<Airline> getAllAirlines() {
-        return airlinePersistenceManager.findAllAirlines();
+    public List<Airline> getAll() {
+        return airlinePersistenceManager.findAll();
     }
 
-    public Optional<Airline> getAirlineById(UUID id) {
-        return airlinePersistenceManager.findAirlineById(id);
+    public Optional<Airline> getById(UUID id) {
+        return airlinePersistenceManager.findById(id);
     }
 
     public Airline save(Airline airline) throws AirlineAlreadyExistsException {
-        if(airlinePersistenceManager.findAirlineById(airline.getId()).isPresent()) {
+        if(airlinePersistenceManager.findById(airline.getId()).isPresent()) {
             throw new AirlineAlreadyExistsException(airline.getId());
         }
-        return airlinePersistenceManager.saveAirline(airline);
+        return airlinePersistenceManager.save(airline);
     }
 
     public Airline update(Airline airline) {
-        return airlinePersistenceManager.saveAirline(airline);
+        return airlinePersistenceManager.save(airline);
     }
 
     public void delete(UUID id){
-        airlinePersistenceManager.deleteAirline(id);
+        airlinePersistenceManager.delete(id);
     }
 
 }
