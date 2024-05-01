@@ -7,9 +7,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface FlightPersistenceManager {
-    List<Flight> findAllFlights();
+    List<Flight> findAll();
     Optional<Flight> findById(UUID id);
-    Flight saveFlight(Flight flight);
-    void deleteFlight(UUID id);
+    Flight save(Flight flight);
+    void delete(UUID id);
 
 }

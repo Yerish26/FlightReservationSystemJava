@@ -19,7 +19,7 @@ public class AircraftFactoryJpaPersistenceManager implements AircraftFactoryPers
         this.aircraftFactoryEntityMapper = aircraftFactoryEntityMapper;
     }
     @Override
-    public List<AircraftFactory> findAllAircraftFactories() {
+    public List<AircraftFactory> findAll() {
         return aircraftFactoryRepository.findAll().stream().map(aircraftFactoryEntityMapper::map).toList();
     }
 
@@ -29,12 +29,12 @@ public class AircraftFactoryJpaPersistenceManager implements AircraftFactoryPers
     }
 
     @Override
-    public AircraftFactory saveAircraftFactory(AircraftFactory aircraftFactory) {
+    public AircraftFactory save(AircraftFactory aircraftFactory) {
         return aircraftFactoryEntityMapper.map(aircraftFactoryRepository.save(aircraftFactoryEntityMapper.map(aircraftFactory)));
     }
 
     @Override
-    public void deleteAircraftFactory(UUID id) {
+    public void delete(UUID id) {
         aircraftFactoryRepository.deleteById(id);
     }
 }

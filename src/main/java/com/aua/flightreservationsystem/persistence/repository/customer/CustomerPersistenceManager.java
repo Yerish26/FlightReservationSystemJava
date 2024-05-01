@@ -7,8 +7,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface CustomerPersistenceManager {
-    List<Customer> findAllCustomers();
+    List<Customer> findAll();
     Optional<Customer> findById(UUID id);
-    Customer saveCustomer(Customer customer);
-    void deleteCustomer(UUID id);
+    Customer save(Customer customer);
+    void delete(UUID id);
 }

@@ -20,7 +20,7 @@ public class CustomerJpaPersistenceManager implements CustomerPersistenceManager
     }
 
     @Override
-    public List<Customer> findAllCustomers() {
+    public List<Customer> findAll() {
         return customerRepository.findAll().stream().map(customerEntityMapper::map).toList();
     }
 
@@ -30,12 +30,12 @@ public class CustomerJpaPersistenceManager implements CustomerPersistenceManager
     }
 
     @Override
-    public Customer saveCustomer(Customer customer) {
+    public Customer save(Customer customer) {
         return customerEntityMapper.map(customerRepository.save(customerEntityMapper.map(customer)));
     }
 
     @Override
-    public void deleteCustomer(UUID id) {
+    public void delete(UUID id) {
         customerRepository.deleteById(id);
     }
 }

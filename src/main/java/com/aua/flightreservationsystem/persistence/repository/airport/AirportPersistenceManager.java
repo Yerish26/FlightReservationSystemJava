@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 public interface AirportPersistenceManager {
-    List<Airport> findAllAirports();
-    Optional<Airport> findAirportById(UUID id);
-    Airport saveAirport(Airport airport);
-    void deleteAirport(UUID id);
+    List<Airport> findAll();
+    Optional<Airport> findById(UUID id);
+    Airport save(Airport airport);
+    void delete(UUID id);
 }

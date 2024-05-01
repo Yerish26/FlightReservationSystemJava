@@ -7,8 +7,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface AircraftFactoryPersistenceManager {
-    List<AircraftFactory> findAllAircraftFactories();
+    List<AircraftFactory> findAll();
     Optional<AircraftFactory> findById(UUID id);
-    AircraftFactory saveAircraftFactory(AircraftFactory aircraftFactory);
-    void deleteAircraftFactory(UUID id);
+    AircraftFactory save(AircraftFactory aircraftFactory);
+    void delete(UUID id);
 }

@@ -23,7 +23,7 @@ public class FlightJpaPersistenceManager implements FlightPersistenceManager {
     }
 
     @Override
-    public List<Flight> findAllFlights() {
+    public List<Flight> findAll() {
         return flightRepository.findAll().stream().map(flightEntityMapper::map).toList();
     }
 
@@ -33,12 +33,12 @@ public class FlightJpaPersistenceManager implements FlightPersistenceManager {
     }
 
     @Override
-    public Flight saveFlight(Flight flight) {
+    public Flight save(Flight flight) {
         return flightEntityMapper.map(flightRepository.save(flightEntityMapper.map(flight)));
     }
 
     @Override
-    public void deleteFlight(UUID id) {
+    public void delete(UUID id) {
         flightRepository.deleteById(id);
     }
 

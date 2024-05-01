@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface TokenPersistenceManager {
 
-    List<Token> findAllTokens();
+    List<Token> findAll();
 
     List<Token> findAllTokensByUser(UUID id);
 
@@ -19,5 +19,5 @@ public interface TokenPersistenceManager {
 
     void saveAll(List<Token> tokens);
 
-    void deleteToken(UUID id);
+    void delete(UUID id);
 }

@@ -20,22 +20,22 @@ public class AirlineJpaPersistenceManager implements AirlinePersistenceManager {
     }
 
     @Override
-    public List<Airline> findAllAirlines() {
+    public List<Airline> findAll() {
         return airlineRepository.findAll().stream().map(airlineEntityMapper::map).toList();
     }
 
     @Override
-    public Optional<Airline> findAirlineById(UUID id) {
+    public Optional<Airline> findById(UUID id) {
         return airlineRepository.findById(id).map(airlineEntityMapper::map);
     }
 
     @Override
-    public Airline saveAirline(Airline airline) {
+    public Airline save(Airline airline) {
         return airlineEntityMapper.map(airlineRepository.save(airlineEntityMapper.map(airline)));
     }
 
     @Override
-    public void deleteAirline(UUID id) {
+    public void delete(UUID id) {
         airlineRepository.deleteById(id);
     }
 }

@@ -20,7 +20,7 @@ public class AdminJpaPersistenceManager implements AdminPersistenceManager{
     }
 
     @Override
-    public List<Admin> findAllAdmins() {
+    public List<Admin> findAll() {
         return adminRepository.findAll().stream().map(adminEntityMapper::map).toList();
     }
 
@@ -30,12 +30,12 @@ public class AdminJpaPersistenceManager implements AdminPersistenceManager{
     }
 
     @Override
-    public Admin saveAdmin(Admin admin) {
+    public Admin save(Admin admin) {
         return adminEntityMapper.map(adminRepository.save(adminEntityMapper.map(admin)));
     }
 
     @Override
-    public void deleteAdmin(UUID id) {
+    public void delete(UUID id) {
         adminRepository.deleteById(id);
     }
 }

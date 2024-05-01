@@ -7,8 +7,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface EmployeePersistenceManager {
-    List<Employee> findAllEmployees();
+    List<Employee> findAll();
     Optional<Employee> findById(UUID id);
-    Employee saveEmployee(Employee employee);
-    void deleteEmployee(UUID id);
+    Employee save(Employee employee);
+    void delete(UUID id);
 }

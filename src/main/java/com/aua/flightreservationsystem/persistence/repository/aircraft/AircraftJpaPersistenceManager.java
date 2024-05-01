@@ -20,22 +20,22 @@ public class AircraftJpaPersistenceManager implements AircraftPersistenceManager
     }
 
     @Override
-    public List<Aircraft> findAllAircrafts() {
+    public List<Aircraft> findAll() {
         return aircraftRepository.findAll().stream().map(aircraftEntityMapper::map).toList();
     }
 
     @Override
-    public Optional<Aircraft> findAircraftById(UUID id) {
+    public Optional<Aircraft> findById(UUID id) {
         return aircraftRepository.findById(id).map(aircraftEntityMapper::map);
     }
 
     @Override
-    public Aircraft saveAircraft(Aircraft aircraft) {
+    public Aircraft save(Aircraft aircraft) {
         return aircraftEntityMapper.map(aircraftRepository.save(aircraftEntityMapper.map(aircraft)));
     }
 
     @Override
-    public void deleteAircraft(UUID id) {
+    public void delete(UUID id) {
         aircraftRepository.deleteById(id);
     }
 }

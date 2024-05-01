@@ -21,7 +21,7 @@ public class CountryJpaPersistenceManager implements CountryPersistenceManager {
     }
 
     @Override
-    public List<Country> findAllCountries() {
+    public List<Country> findAll() {
         return countryRepository.findAll().stream().map(countryEntityMapper::map).toList();
     }
 
@@ -31,12 +31,12 @@ public class CountryJpaPersistenceManager implements CountryPersistenceManager {
     }
 
     @Override
-    public Country saveCountry(Country country) {
+    public Country save(Country country) {
         return countryEntityMapper.map(countryRepository.save(countryEntityMapper.map(country)));
     }
 
     @Override
-    public void deleteCountry(UUID id) {
+    public void delete(UUID id) {
         countryRepository.deleteById(id);
     }
 }

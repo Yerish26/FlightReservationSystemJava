@@ -21,7 +21,7 @@ public class CityJpaPersistenceManager implements CityPersistenceManager {
     }
 
     @Override
-    public List<City> findAllCities() {
+    public List<City> findAll() {
         return cityRepository.findAll().stream().map(cityEntityMapper::map).toList();
     }
 
@@ -31,12 +31,12 @@ public class CityJpaPersistenceManager implements CityPersistenceManager {
     }
 
     @Override
-    public City saveCity(City city) {
+    public City save(City city) {
         return cityEntityMapper.map(cityRepository.save(cityEntityMapper.map(city)));
     }
 
     @Override
-    public void deleteCity(UUID id) {
+    public void delete(UUID id) {
         cityRepository.deleteById(id);
     }
 }
