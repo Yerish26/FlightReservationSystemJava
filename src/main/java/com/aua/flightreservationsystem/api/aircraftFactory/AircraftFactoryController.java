@@ -35,7 +35,7 @@ public class AircraftFactoryController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<AircraftFactoryResponse> createAircraftFactory(@RequestBody AircraftFactoryRequest aircraftFactoryRequest) throws AirlineAlreadyExistsException, AircraftFactoryAlreadyExistsException {
+    public ResponseEntity<AircraftFactoryResponse> createAircraftFactory(@RequestBody AircraftFactoryRequest aircraftFactoryRequest) throws  AircraftFactoryAlreadyExistsException {
         AircraftFactory aircraftFactory= aircraftApiMapper.map(aircraftFactoryRequest);
         AircraftFactory savedAircraftFactory = aircraftFactoryService.save(aircraftFactory);
 

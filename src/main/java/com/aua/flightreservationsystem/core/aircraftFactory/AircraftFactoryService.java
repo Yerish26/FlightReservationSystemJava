@@ -23,8 +23,9 @@ public class AircraftFactoryService {
     }
 
     public AircraftFactory save(AircraftFactory aircraftFactory) throws AircraftFactoryAlreadyExistsException {
-        if (aircraftFactoryPersistenceManager.findById(aircraftFactory.getId()).isPresent()) {
-            throw new AircraftFactoryAlreadyExistsException(aircraftFactory.getId());
+        UUID id = aircraftFactory.getId();
+        if (id != null && aircraftFactoryPersistenceManager.findById(id).isPresent()) {
+            throw new AircraftFactoryAlreadyExistsException(id);
         }
         return aircraftFactoryPersistenceManager.save(aircraftFactory);
     }
