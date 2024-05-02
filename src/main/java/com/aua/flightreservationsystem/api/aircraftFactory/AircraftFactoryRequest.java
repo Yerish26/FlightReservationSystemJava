@@ -12,5 +12,5 @@ import java.util.UUID;
 @Jacksonized
 public class AircraftFactoryRequest {
     String modelName;
-    List<UUID> aircraftIds;
+//    List<UUID> aircraftIds;
 }

@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/AircraftFactory")
+@RequestMapping("/allow/aircraft-factory")
 public class AircraftFactoryController {
     final private AircraftFactoryApiMapper aircraftApiMapper;
     final private AircraftFactoryService aircraftFactoryService;
