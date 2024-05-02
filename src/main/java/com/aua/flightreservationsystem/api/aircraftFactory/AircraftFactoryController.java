@@ -64,4 +64,17 @@ public class AircraftFactoryController {
         aircraftFactoryService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
+    
+    
+    @ExceptionHandler(AircraftFactoryAlreadyExistsException.class)
+    ResponseEntity<String> handleFlightAlreadyExistsExceptions(AircraftFactoryAlreadyExistsException aircraftFactoryAlreadyExistsException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(aircraftFactoryAlreadyExistsException.getMessage());
+    }
+
+
+    @ExceptionHandler(AircraftFactoryNotFoundException.class)
+    ResponseEntity<String> handleFlightNotFoundExceptions(AircraftFactoryNotFoundException aircraftFactoryNotFoundException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(aircraftFactoryNotFoundException.getMessage());
+    }
+     
 }
