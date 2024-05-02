@@ -12,5 +12,5 @@ import java.util.UUID;
 public class AircraftFactory {
     UUID id;
     String modelName;
-    List<Aircraft> aircraft;
+//    List<Aircraft> aircraft;
 }
