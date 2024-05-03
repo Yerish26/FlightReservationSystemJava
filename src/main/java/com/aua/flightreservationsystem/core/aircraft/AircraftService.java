@@ -1,7 +1,11 @@
 package com.aua.flightreservationsystem.core.aircraft;
 
+import com.aua.flightreservationsystem.api.aircraft.AircraftRequest;
 import com.aua.flightreservationsystem.core.aircraft.exceptions.AircraftAlreadyExistsException;
+import com.aua.flightreservationsystem.core.aircraftFactory.AircraftFactory;
+import com.aua.flightreservationsystem.core.aircraftFactory.exceptions.AircraftFactoryNotFoundException;
 import com.aua.flightreservationsystem.persistence.repository.aircraft.AircraftPersistenceManager;
+import com.aua.flightreservationsystem.persistence.repository.aircraftFactory.AircraftFactoryPersistenceManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,19 +17,29 @@ import java.util.UUID;
 @Service
 public class AircraftService {
     private final AircraftPersistenceManager aircraftPersistenceManager;
+    private final AircraftFactoryPersistenceManager aircraftFactoryPersistenceManager;
 
     public List<Aircraft> getAll() {
         return aircraftPersistenceManager.findAll();
     }
+
     public Optional<Aircraft> getById(UUID id) {
         return aircraftPersistenceManager.findById(id);
     }
 
-    public Aircraft save(Aircraft aircraft) throws AircraftAlreadyExistsException {
-        UUID id = aircraft.getId();
-        if (id != null && aircraftPersistenceManager.findById(id).isPresent()) {
-            throw new AircraftAlreadyExistsException(id);
+    public Aircraft save(AircraftRequest aircraftRequest) throws AircraftAlreadyExistsException, AircraftFactoryNotFoundException {
+        Optional<AircraftFactory> aircraftFactory = aircraftFactoryPersistenceManager.findById(aircraftRequest.getAircraftFactoryId());
+
+        if (aircraftFactory.isEmpty()) {
+            throw new AircraftFactoryNotFoundException(aircraftRequest.getAircraftFactoryId());
         }
+
+        Aircraft aircraft = Aircraft.builder()
+                .aircraftFactory(aircraftFactory.get())
+                .modelName(aircraftRequest.getModelName())
+                .numberOfSeats(aircraftRequest.getNumberOfSeats())
+                .build();
+
         return aircraftPersistenceManager.save(aircraft);
     }
 
@@ -33,7 +47,7 @@ public class AircraftService {
         return aircraftPersistenceManager.save(aircraft);
     }
 
-    public void delete(UUID id){
+    public void delete(UUID id) {
         aircraftPersistenceManager.delete(id);
     }
 

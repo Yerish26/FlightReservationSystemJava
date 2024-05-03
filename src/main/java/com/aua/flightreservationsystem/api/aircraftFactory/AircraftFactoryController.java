@@ -5,7 +5,6 @@ import com.aua.flightreservationsystem.core.aircraftFactory.AircraftFactory;
 import com.aua.flightreservationsystem.core.aircraftFactory.AircraftFactoryService;
 import com.aua.flightreservationsystem.core.aircraftFactory.exceptions.AircraftFactoryAlreadyExistsException;
 import com.aua.flightreservationsystem.core.aircraftFactory.exceptions.AircraftFactoryNotFoundException;
-import com.aua.flightreservationsystem.core.airline.exceptions.AirlineAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/aircraft-factory")
+@RequestMapping("/allow/aircraft-factory")
 public class AircraftFactoryController {
     final private AircraftFactoryApiMapper aircraftApiMapper;
     final private AircraftFactoryService aircraftFactoryService;
