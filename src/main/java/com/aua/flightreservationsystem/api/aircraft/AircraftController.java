@@ -45,7 +45,7 @@ public class AircraftController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AircraftResponse> updateAircraft(@PathVariable UUID id, @RequestBody AircraftRequest aircraftRequest) {
+    public ResponseEntity<AircraftResponse> updateAircraft(@PathVariable UUID id, @RequestBody AircraftRequest aircraftRequest) throws AircraftFactoryNotFoundException, AircraftAlreadyExistsException {
         HttpStatus httpStatus;
         if (aircraftService.getById(id).isPresent()) {
             httpStatus = HttpStatus.OK;
@@ -54,8 +54,8 @@ public class AircraftController {
         }
 
         // TODO remove it
-        Aircraft aircraft = aircraftApiMapper.map(id, aircraftRequest);
-        Aircraft updateAircraft = aircraftService.update(aircraft);
+//        Aircraft aircraft = aircraftApiMapper.map(id, aircraftRequest);
+        Aircraft updateAircraft = aircraftService.update(id, aircraftRequest);
         return ResponseEntity.status(httpStatus).body(aircraftApiMapper.map(updateAircraft));
     }
 
@@ -79,5 +79,10 @@ public class AircraftController {
     ResponseEntity<String> handleAircraftNotFoundExceptions(AircraftNotFoundException aircraftNotFoundException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(aircraftNotFoundException.getMessage());
     }
-     
+
+    @ExceptionHandler(AircraftFactoryNotFoundException.class)
+    ResponseEntity<String> handleAircraftFactoryNotFoundExceptions(AircraftFactoryNotFoundException aircraftFactoryNotFoundException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(aircraftFactoryNotFoundException.getMessage());
+    }
+
 }

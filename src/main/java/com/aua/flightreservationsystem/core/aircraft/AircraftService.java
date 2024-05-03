@@ -43,8 +43,28 @@ public class AircraftService {
         return aircraftPersistenceManager.save(aircraft);
     }
 
-    public Aircraft update(Aircraft aircraft) {
-        return aircraftPersistenceManager.save(aircraft);
+    public Aircraft update(UUID id, AircraftRequest aircraftRequest) throws AircraftAlreadyExistsException, AircraftFactoryNotFoundException {
+        Optional<Aircraft> existingAircraftOptional = aircraftPersistenceManager.findById(id);
+        Optional<AircraftFactory> aircraftFactory = aircraftFactoryPersistenceManager.findById(aircraftRequest.getAircraftFactoryId());
+
+        if (aircraftFactory.isEmpty()) {
+            throw new AircraftFactoryNotFoundException(aircraftRequest.getAircraftFactoryId());
+        }
+
+        if (existingAircraftOptional.isPresent()) {
+            Aircraft existingAircraft = existingAircraftOptional.get();
+
+            Aircraft updatedAircraft = Aircraft.builder()
+                    .id(existingAircraft.getId())
+                    .aircraftFactory(aircraftFactory.get())
+                    .modelName(aircraftRequest.getModelName())
+                    .numberOfSeats(aircraftRequest.getNumberOfSeats())
+                    .build();
+
+           return aircraftPersistenceManager.save(updatedAircraft);
+        }
+
+        return save(aircraftRequest);
     }
 
     public void delete(UUID id) {

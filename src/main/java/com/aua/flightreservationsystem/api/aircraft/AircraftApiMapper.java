@@ -12,5 +12,4 @@ public interface AircraftApiMapper {
     @Mapping(target = "aircraftFactoryId", source = "aircraft.aircraftFactory.id")
     AircraftResponse map(Aircraft aircraft);
 
-    Aircraft map(UUID id, AircraftRequest aircraftRequest);
 }

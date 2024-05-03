@@ -66,13 +66,13 @@ public class AircraftFactoryController {
     
     
     @ExceptionHandler(AircraftFactoryAlreadyExistsException.class)
-    ResponseEntity<String> handleFlightAlreadyExistsExceptions(AircraftFactoryAlreadyExistsException aircraftFactoryAlreadyExistsException) {
+    ResponseEntity<String> handleAircraftFactoryAlreadyExistsExceptions(AircraftFactoryAlreadyExistsException aircraftFactoryAlreadyExistsException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(aircraftFactoryAlreadyExistsException.getMessage());
     }
 
 
     @ExceptionHandler(AircraftFactoryNotFoundException.class)
-    ResponseEntity<String> handleFlightNotFoundExceptions(AircraftFactoryNotFoundException aircraftFactoryNotFoundException) {
+    ResponseEntity<String> handleAircraftFactoryNotFoundExceptions(AircraftFactoryNotFoundException aircraftFactoryNotFoundException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(aircraftFactoryNotFoundException.getMessage());
     }
      
