@@ -1,6 +1,5 @@
 package com.aua.flightreservationsystem.core.jwt.config;
 
-
 import com.aua.flightreservationsystem.persistence.model.TokenEntity;
 import com.aua.flightreservationsystem.persistence.repository.token.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,17 +20,16 @@ public class CustomLogoutHandler implements LogoutHandler {
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         String authHeader = request.getHeader("Authorization");
 
-        if(authHeader == null || !authHeader.startsWith("Bearer ")) {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             return;
         }
 
         String token = authHeader.substring(7);
         TokenEntity storedToken = tokenRepository.findByToken(token).orElse(null);
 
-        if(storedToken != null) {
+        if (storedToken != null) {
             storedToken.setLoggedOut(true);
             tokenRepository.save(storedToken);
         }
-
     }
 }

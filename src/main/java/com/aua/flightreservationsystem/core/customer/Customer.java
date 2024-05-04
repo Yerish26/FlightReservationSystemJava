@@ -1,11 +1,10 @@
 package com.aua.flightreservationsystem.core.customer;
 
 import com.aua.flightreservationsystem.core.user.User;
-import lombok.Builder;
-import lombok.Value;
-
 import java.util.Date;
 import java.util.UUID;
+import lombok.Builder;
+import lombok.Value;
 
 @Value
 @Builder(toBuilder = true)

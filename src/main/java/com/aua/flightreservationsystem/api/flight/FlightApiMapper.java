@@ -2,9 +2,8 @@ package com.aua.flightreservationsystem.api.flight;
 
 import com.aua.flightreservationsystem.core.city.City;
 import com.aua.flightreservationsystem.core.flight.Flight;
-import org.mapstruct.Mapper;
-
 import java.util.UUID;
+import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface FlightApiMapper {

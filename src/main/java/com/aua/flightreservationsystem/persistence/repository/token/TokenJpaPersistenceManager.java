@@ -1,12 +1,11 @@
 package com.aua.flightreservationsystem.persistence.repository.token;
 
 import com.aua.flightreservationsystem.core.jwt.Token;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class TokenJpaPersistenceManager implements TokenPersistenceManager {
@@ -20,7 +19,6 @@ public class TokenJpaPersistenceManager implements TokenPersistenceManager {
         this.tokenEntityMapper = tokenEntityMapper;
     }
 
-
     @Override
     public List<Token> findAll() {
         return tokenRepository.findAll().stream().map(tokenEntityMapper::map).toList();
@@ -28,7 +26,9 @@ public class TokenJpaPersistenceManager implements TokenPersistenceManager {
 
     @Override
     public List<Token> findAllTokensByUser(UUID id) {
-        return tokenRepository.findAllTokensByUserId(id).stream().map(tokenEntityMapper::map).toList();
+        return tokenRepository.findAllTokensByUserId(id).stream()
+                .map(tokenEntityMapper::map)
+                .toList();
     }
 
     @Override
@@ -42,9 +42,7 @@ public class TokenJpaPersistenceManager implements TokenPersistenceManager {
     }
 
     @Override
-    public void saveAll(List<Token> tokens) {
-
-    }
+    public void saveAll(List<Token> tokens) {}
 
     @Override
     public void delete(UUID id) {

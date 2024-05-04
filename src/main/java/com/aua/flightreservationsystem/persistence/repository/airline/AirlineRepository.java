@@ -1,9 +1,7 @@
 package com.aua.flightreservationsystem.persistence.repository.airline;
 
 import com.aua.flightreservationsystem.persistence.model.AirlineEntity;
+import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.UUID;
-
-public interface AirlineRepository extends JpaRepository<AirlineEntity, UUID> {
-}
+public interface AirlineRepository extends JpaRepository<AirlineEntity, UUID> {}

@@ -1,12 +1,11 @@
 package com.aua.flightreservationsystem.persistence.repository.airport;
 
 import com.aua.flightreservationsystem.core.airport.Airport;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class AirportJpaPersistenceManager implements AirportPersistenceManager {
@@ -21,7 +20,9 @@ public class AirportJpaPersistenceManager implements AirportPersistenceManager {
 
     @Override
     public List<Airport> findAll() {
-        return airportRepository.findAll().stream().map(airportEntityMapper::map).toList();
+        return airportRepository.findAll().stream()
+                .map(airportEntityMapper::map)
+                .toList();
     }
 
     @Override

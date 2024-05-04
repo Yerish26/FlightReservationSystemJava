@@ -7,5 +7,6 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface CityEntityMapper {
     City map(CityEntity cityEntity);
+
     CityEntity map(City city);
 }

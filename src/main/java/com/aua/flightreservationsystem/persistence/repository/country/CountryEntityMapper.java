@@ -7,5 +7,6 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface CountryEntityMapper {
     Country map(CountryEntity countryEntity);
+
     CountryEntity map(Country country);
 }

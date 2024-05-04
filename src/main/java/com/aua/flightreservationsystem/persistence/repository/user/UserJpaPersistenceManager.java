@@ -1,12 +1,11 @@
 package com.aua.flightreservationsystem.persistence.repository.user;
 
 import com.aua.flightreservationsystem.core.user.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserJpaPersistenceManager implements UserPersistenceManager {
@@ -19,7 +18,6 @@ public class UserJpaPersistenceManager implements UserPersistenceManager {
         this.userRepository = userRepository;
         this.userEntityMapper = customerEntityMapper;
     }
-
 
     @Override
     public List<User> findAll() {
@@ -35,7 +33,6 @@ public class UserJpaPersistenceManager implements UserPersistenceManager {
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username).map(userEntityMapper::map);
     }
-
 
     @Override
     public User save(User customer) {

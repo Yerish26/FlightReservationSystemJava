@@ -1,14 +1,13 @@
 package com.aua.flightreservationsystem.persistence.model;
 
 import jakarta.persistence.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "user")
