@@ -53,8 +53,6 @@ public class AircraftController {
             httpStatus = HttpStatus.CREATED;
         }
 
-        // TODO remove it
-//        Aircraft aircraft = aircraftApiMapper.map(id, aircraftRequest);
         Aircraft updateAircraft = aircraftService.update(id, aircraftRequest);
         return ResponseEntity.status(httpStatus).body(aircraftApiMapper.map(updateAircraft));
     }

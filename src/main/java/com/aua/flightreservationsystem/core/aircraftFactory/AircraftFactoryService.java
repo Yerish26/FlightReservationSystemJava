@@ -1,6 +1,6 @@
 package com.aua.flightreservationsystem.core.aircraftFactory;
 
-import com.aua.flightreservationsystem.core.aircraftFactory.exceptions.AircraftFactoryAlreadyExistsException;
+import com.aua.flightreservationsystem.api.aircraftFactory.AircraftFactoryRequest;
 import com.aua.flightreservationsystem.persistence.repository.aircraftFactory.AircraftFactoryPersistenceManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,16 +22,26 @@ public class AircraftFactoryService {
         return aircraftFactoryPersistenceManager.findById(id);
     }
 
-    public AircraftFactory save(AircraftFactory aircraftFactory) throws AircraftFactoryAlreadyExistsException {
-        UUID id = aircraftFactory.getId();
-        if (id != null && aircraftFactoryPersistenceManager.findById(id).isPresent()) {
-            throw new AircraftFactoryAlreadyExistsException(id);
-        }
+    public AircraftFactory save(AircraftFactoryRequest aircraftFactoryRequest) {
+        AircraftFactory aircraftFactory = getAircraftFactory(aircraftFactoryRequest);
         return aircraftFactoryPersistenceManager.save(aircraftFactory);
     }
 
-    public AircraftFactory update(AircraftFactory aircraftFactory) {
+    public AircraftFactory update(UUID id, AircraftFactoryRequest aircraftFactoryRequest) {
+        Optional<AircraftFactory> aircraftFactoryOptional = aircraftFactoryPersistenceManager.findById(id);
+        if (aircraftFactoryOptional.isEmpty()) {
+            return save(aircraftFactoryRequest);
+        }
+        
+        AircraftFactory aircraftFactory = getAircraftFactory(aircraftFactoryRequest).toBuilder().id(id).build();
+        
         return aircraftFactoryPersistenceManager.save(aircraftFactory);
+    }
+
+    private static AircraftFactory getAircraftFactory(AircraftFactoryRequest aircraftFactoryRequest) {
+        return AircraftFactory.builder()
+                .modelName(aircraftFactoryRequest.getModelName())
+                .build();
     }
 
     public void delete(UUID id){

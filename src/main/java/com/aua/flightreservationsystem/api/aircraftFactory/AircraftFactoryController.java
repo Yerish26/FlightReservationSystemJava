@@ -35,9 +35,7 @@ public class AircraftFactoryController {
 
     @PostMapping("/")
     public ResponseEntity<AircraftFactoryResponse> createAircraftFactory(@RequestBody AircraftFactoryRequest aircraftFactoryRequest) throws  AircraftFactoryAlreadyExistsException {
-        AircraftFactory aircraftFactory= aircraftApiMapper.map(aircraftFactoryRequest);
-        AircraftFactory savedAircraftFactory = aircraftFactoryService.save(aircraftFactory);
-
+        AircraftFactory savedAircraftFactory = aircraftFactoryService.save(aircraftFactoryRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(aircraftApiMapper.map(savedAircraftFactory));
     }
 
@@ -50,8 +48,7 @@ public class AircraftFactoryController {
             httpStatus = HttpStatus.CREATED;
         }
 
-        AircraftFactory aircraftFactory = aircraftApiMapper.map(id, aircraftFactoryRequest);
-        AircraftFactory updateAircraftFactory = aircraftFactoryService.update(aircraftFactory);
+        AircraftFactory updateAircraftFactory = aircraftFactoryService.update(id, aircraftFactoryRequest);
         return ResponseEntity.status(httpStatus).body(aircraftApiMapper.map(updateAircraftFactory));
     }
 
