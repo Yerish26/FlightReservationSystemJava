@@ -18,7 +18,7 @@ public class FlightController {
     private final FlightService flightService;
     private final FlightApiMapper flightApiMapper;
 
-    @GetMapping("/flights")
+    @GetMapping("/allow/flights")
     public ResponseEntity<List<FlightResponse>> getAllFlights() {
         return ResponseEntity.ok(
                 flightService.getAll().stream().map(flightApiMapper::map).toList());

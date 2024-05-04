@@ -13,4 +13,6 @@ public interface FlightPersistenceManager {
     Flight save(Flight flight);
 
     void delete(UUID id);
+
+    List<Flight> findAllById(List<UUID> ids);
 }

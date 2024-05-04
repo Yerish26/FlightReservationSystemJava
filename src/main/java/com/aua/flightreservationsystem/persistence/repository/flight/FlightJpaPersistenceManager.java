@@ -39,4 +39,11 @@ public class FlightJpaPersistenceManager implements FlightPersistenceManager {
     public void delete(UUID id) {
         flightRepository.deleteById(id);
     }
+
+    @Override
+    public List<Flight> findAllById(List<UUID> ids) {
+        return flightRepository.findAllById(ids).stream()
+                .map(flightEntityMapper::map)
+                .toList();
+    }
 }

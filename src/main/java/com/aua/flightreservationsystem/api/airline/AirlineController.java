@@ -2,8 +2,8 @@ package com.aua.flightreservationsystem.api.airline;
 
 import com.aua.flightreservationsystem.core.airline.Airline;
 import com.aua.flightreservationsystem.core.airline.AirlineService;
-import com.aua.flightreservationsystem.core.airline.exceptions.AirlineAlreadyExistsException;
 import com.aua.flightreservationsystem.core.airline.exceptions.AirlineNotFoundException;
+import com.aua.flightreservationsystem.core.flight.exceptions.OneOrMoreFlightsNotFoundException;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/admin_employee/airline")
+@RequestMapping("/allow/airline")
 public class AirlineController {
     private final AirlineApiMapper airlineApiMapper;
     private final AirlineService airlineService;
@@ -33,16 +33,16 @@ public class AirlineController {
 
     @PostMapping("/")
     public ResponseEntity<AirlineResponse> createAirline(@RequestBody AirlineRequest airlineRequest)
-            throws AirlineAlreadyExistsException {
-        Airline airline = airlineApiMapper.map(airlineRequest);
-        Airline savedAirline = airlineService.save(airline);
+            throws OneOrMoreFlightsNotFoundException {
+        Airline savedAirline = airlineService.save(airlineRequest);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(airlineApiMapper.map(savedAirline));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<AirlineResponse> updateAirline(
-            @PathVariable UUID id, @RequestBody AirlineRequest airlineRequest) {
+            @PathVariable UUID id, @RequestBody AirlineRequest airlineRequest)
+            throws OneOrMoreFlightsNotFoundException {
         HttpStatus httpStatus;
         if (airlineService.getById(id).isPresent()) {
             httpStatus = HttpStatus.OK;
@@ -50,8 +50,7 @@ public class AirlineController {
             httpStatus = HttpStatus.CREATED;
         }
 
-        Airline airline = airlineApiMapper.map(id, airlineRequest);
-        Airline updateAirline = airlineService.update(airline);
+        Airline updateAirline = airlineService.update(id, airlineRequest);
         return ResponseEntity.status(httpStatus).body(airlineApiMapper.map(updateAirline));
     }
 
