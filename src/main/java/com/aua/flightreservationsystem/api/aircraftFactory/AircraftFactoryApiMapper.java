@@ -12,12 +12,4 @@ import java.util.UUID;
 @Mapper(componentModel = "spring")
 public interface AircraftFactoryApiMapper {
     AircraftFactoryResponse map(AircraftFactory aircraftFactory);
-
-    List<Aircraft> map(List<UUID> aircraftIds);
-
-    Aircraft map(UUID aircraftId);
-
-    AircraftFactory map(AircraftFactoryRequest aircraftFactoryRequest);
-
-    AircraftFactory map(UUID id, AircraftFactoryRequest aircraftFactoryRequest);
 }
