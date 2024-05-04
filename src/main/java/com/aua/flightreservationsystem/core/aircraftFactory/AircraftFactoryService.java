@@ -2,12 +2,11 @@ package com.aua.flightreservationsystem.core.aircraftFactory;
 
 import com.aua.flightreservationsystem.api.aircraftFactory.AircraftFactoryRequest;
 import com.aua.flightreservationsystem.persistence.repository.aircraftFactory.AircraftFactoryPersistenceManager;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
@@ -32,9 +31,10 @@ public class AircraftFactoryService {
         if (aircraftFactoryOptional.isEmpty()) {
             return save(aircraftFactoryRequest);
         }
-        
-        AircraftFactory aircraftFactory = getAircraftFactory(aircraftFactoryRequest).toBuilder().id(id).build();
-        
+
+        AircraftFactory aircraftFactory =
+                getAircraftFactory(aircraftFactoryRequest).toBuilder().id(id).build();
+
         return aircraftFactoryPersistenceManager.save(aircraftFactory);
     }
 
@@ -44,7 +44,7 @@ public class AircraftFactoryService {
                 .build();
     }
 
-    public void delete(UUID id){
+    public void delete(UUID id) {
         aircraftFactoryPersistenceManager.delete(id);
     }
 }

@@ -6,12 +6,11 @@ import com.aua.flightreservationsystem.core.aircraftFactory.AircraftFactory;
 import com.aua.flightreservationsystem.core.aircraftFactory.exceptions.AircraftFactoryNotFoundException;
 import com.aua.flightreservationsystem.persistence.repository.aircraft.AircraftPersistenceManager;
 import com.aua.flightreservationsystem.persistence.repository.aircraftFactory.AircraftFactoryPersistenceManager;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
@@ -27,7 +26,8 @@ public class AircraftService {
         return aircraftPersistenceManager.findById(id);
     }
 
-    public Aircraft save(AircraftRequest aircraftRequest) throws AircraftAlreadyExistsException, AircraftFactoryNotFoundException {
+    public Aircraft save(AircraftRequest aircraftRequest)
+            throws AircraftAlreadyExistsException, AircraftFactoryNotFoundException {
         Optional<AircraftFactory> aircraftFactory = getAircraftFactory(aircraftRequest);
 
         Aircraft aircraft = getAircraft(aircraftRequest, aircraftFactory);
@@ -43,20 +43,25 @@ public class AircraftService {
                 .build();
     }
 
-    public Aircraft update(UUID id, AircraftRequest aircraftRequest) throws AircraftAlreadyExistsException, AircraftFactoryNotFoundException {
+    public Aircraft update(UUID id, AircraftRequest aircraftRequest)
+            throws AircraftAlreadyExistsException, AircraftFactoryNotFoundException {
         Optional<AircraftFactory> aircraftFactory = getAircraftFactory(aircraftRequest);
         Optional<Aircraft> existingAircraftOptional = aircraftPersistenceManager.findById(id);
 
         if (existingAircraftOptional.isPresent()) {
             Aircraft existingAircraft = existingAircraftOptional.get();
-            Aircraft updatedAircraft = getAircraft(aircraftRequest, aircraftFactory).toBuilder().id(existingAircraft.getId()).build();
-           return aircraftPersistenceManager.save(updatedAircraft);
+            Aircraft updatedAircraft = getAircraft(aircraftRequest, aircraftFactory).toBuilder()
+                    .id(existingAircraft.getId())
+                    .build();
+            return aircraftPersistenceManager.save(updatedAircraft);
         }
         return save(aircraftRequest);
     }
 
-    private Optional<AircraftFactory> getAircraftFactory(AircraftRequest aircraftRequest) throws AircraftFactoryNotFoundException {
-        Optional<AircraftFactory> aircraftFactory = aircraftFactoryPersistenceManager.findById(aircraftRequest.getAircraftFactoryId());
+    private Optional<AircraftFactory> getAircraftFactory(AircraftRequest aircraftRequest)
+            throws AircraftFactoryNotFoundException {
+        Optional<AircraftFactory> aircraftFactory =
+                aircraftFactoryPersistenceManager.findById(aircraftRequest.getAircraftFactoryId());
 
         if (aircraftFactory.isEmpty()) {
             throw new AircraftFactoryNotFoundException(aircraftRequest.getAircraftFactoryId());
@@ -67,5 +72,4 @@ public class AircraftService {
     public void delete(UUID id) {
         aircraftPersistenceManager.delete(id);
     }
-
 }

@@ -28,7 +28,10 @@ public class SecurityConfig {
 
     private final CustomLogoutHandler logoutHandler;
 
-    public SecurityConfig(UserDetailsServiceImp userDetailsServiceImp, JwtAuthenticationFilter jwtAuthenticationFilter, CustomLogoutHandler logoutHandler) {
+    public SecurityConfig(
+            UserDetailsServiceImp userDetailsServiceImp,
+            JwtAuthenticationFilter jwtAuthenticationFilter,
+            CustomLogoutHandler logoutHandler) {
         this.userDetailsServiceImp = userDetailsServiceImp;
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.logoutHandler = logoutHandler;
@@ -37,31 +40,27 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        return http
-                .csrf(AbstractHttpConfigurer::disable)
+        return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
-                        req->req.requestMatchers("/login/**","/register/**","/register_admin/**","/allow/**")
+                        req -> req.requestMatchers("/login/**", "/register/**", "/register_admin/**", "/allow/**")
                                 .permitAll()
-                                .requestMatchers("/admin_only/**").hasAuthority(Role.ADMIN.name())
-                                .requestMatchers("/admin_employee/**").hasAnyAuthority(Role.ADMIN.name(), Role.EMPLOYEE.name())
+                                .requestMatchers("/admin_only/**")
+                                .hasAuthority(Role.ADMIN.name())
+                                .requestMatchers("/admin_employee/**")
+                                .hasAnyAuthority(Role.ADMIN.name(), Role.EMPLOYEE.name())
                                 .anyRequest()
-                                .authenticated()
-                ).userDetailsService(userDetailsServiceImp)
-                .sessionManagement(session->session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                                .authenticated())
+                .userDetailsService(userDetailsServiceImp)
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling(
-                        e->e.accessDeniedHandler(
-                                        (request, response, accessDeniedException)->response.setStatus(HttpStatus.FORBIDDEN.value())
-                                )
-                                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
-                .logout(l->l
-                        .logoutUrl("/logout")
+                .exceptionHandling(e -> e.accessDeniedHandler((request, response, accessDeniedException) ->
+                                response.setStatus(HttpStatus.FORBIDDEN.value()))
+                        .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
+                .logout(l -> l.logoutUrl("/logout")
                         .addLogoutHandler(logoutHandler)
-                        .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext()
-                        ))
+                        .logoutSuccessHandler(
+                                (request, response, authentication) -> SecurityContextHolder.clearContext()))
                 .build();
-
     }
 
     @Bean

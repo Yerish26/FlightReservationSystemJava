@@ -1,11 +1,9 @@
 package com.aua.flightreservationsystem.api.aircraft;
 
+import java.util.UUID;
 import lombok.Builder;
 import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
-
-import java.util.UUID;
-
 
 @Value
 @Builder
