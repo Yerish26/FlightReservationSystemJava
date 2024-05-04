@@ -12,9 +12,7 @@ import lombok.Value;
 @Builder
 public class City {
     UUID id;
-
     String name;
-
     Country country;
     List<Flight> flights;
     Airport airport;
