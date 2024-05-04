@@ -1,12 +1,11 @@
 package com.aua.flightreservationsystem.persistence.repository.flight;
 
 import com.aua.flightreservationsystem.core.flight.Flight;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class FlightJpaPersistenceManager implements FlightPersistenceManager {
@@ -14,7 +13,6 @@ public class FlightJpaPersistenceManager implements FlightPersistenceManager {
     private final FlightRepository flightRepository;
 
     private final FlightEntityMapper flightEntityMapper;
-
 
     @Autowired
     public FlightJpaPersistenceManager(FlightRepository flightRepository, FlightEntityMapper flightEntityMapper) {
@@ -41,6 +39,4 @@ public class FlightJpaPersistenceManager implements FlightPersistenceManager {
     public void delete(UUID id) {
         flightRepository.deleteById(id);
     }
-
-
 }

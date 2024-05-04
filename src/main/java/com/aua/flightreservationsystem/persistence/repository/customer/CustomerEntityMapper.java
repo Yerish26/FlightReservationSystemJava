@@ -7,5 +7,6 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface CustomerEntityMapper {
     Customer map(CustomerEntity customerEntity);
+
     CustomerEntity map(Customer customer);
 }

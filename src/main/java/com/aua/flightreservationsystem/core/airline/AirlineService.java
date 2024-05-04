@@ -1,14 +1,12 @@
 package com.aua.flightreservationsystem.core.airline;
 
 import com.aua.flightreservationsystem.core.airline.exceptions.AirlineAlreadyExistsException;
-import com.aua.flightreservationsystem.core.flight.exceptions.FlightAlreadyExistsException;
 import com.aua.flightreservationsystem.persistence.repository.airline.AirlinePersistenceManager;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class AirlineService {
@@ -28,7 +26,7 @@ public class AirlineService {
     }
 
     public Airline save(Airline airline) throws AirlineAlreadyExistsException {
-        if(airlinePersistenceManager.findById(airline.getId()).isPresent()) {
+        if (airlinePersistenceManager.findById(airline.getId()).isPresent()) {
             throw new AirlineAlreadyExistsException(airline.getId());
         }
         return airlinePersistenceManager.save(airline);
@@ -38,8 +36,7 @@ public class AirlineService {
         return airlinePersistenceManager.save(airline);
     }
 
-    public void delete(UUID id){
+    public void delete(UUID id) {
         airlinePersistenceManager.delete(id);
     }
-
 }

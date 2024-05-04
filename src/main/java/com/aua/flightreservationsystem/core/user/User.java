@@ -1,10 +1,9 @@
 package com.aua.flightreservationsystem.core.user;
 
 import com.aua.flightreservationsystem.persistence.model.Role;
+import java.util.UUID;
 import lombok.Builder;
 import lombok.Value;
-
-import java.util.UUID;
 
 @Value
 @Builder(toBuilder = true)

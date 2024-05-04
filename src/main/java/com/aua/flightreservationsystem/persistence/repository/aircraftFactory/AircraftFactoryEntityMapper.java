@@ -7,5 +7,6 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface AircraftFactoryEntityMapper {
     AircraftFactory map(AircraftFactoryEntity aircraftFactoryEntity);
+
     AircraftFactoryEntity map(AircraftFactory aircraftFactory);
 }

@@ -1,12 +1,11 @@
 package com.aua.flightreservationsystem.persistence.repository.employee;
 
 import com.aua.flightreservationsystem.core.employee.Employee;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class EmployeeJpaPersistenceManager implements EmployeePersistenceManager {
@@ -14,14 +13,17 @@ public class EmployeeJpaPersistenceManager implements EmployeePersistenceManager
     private final EmployeeEntityMapper employeeEntityMapper;
 
     @Autowired
-    public EmployeeJpaPersistenceManager(EmployeeRepository employeeRepository, EmployeeEntityMapper employeeEntityMapper) {
+    public EmployeeJpaPersistenceManager(
+            EmployeeRepository employeeRepository, EmployeeEntityMapper employeeEntityMapper) {
         this.employeeRepository = employeeRepository;
         this.employeeEntityMapper = employeeEntityMapper;
     }
 
     @Override
     public List<Employee> findAll() {
-        return employeeRepository.findAll().stream().map(employeeEntityMapper::map).toList();
+        return employeeRepository.findAll().stream()
+                .map(employeeEntityMapper::map)
+                .toList();
     }
 
     @Override

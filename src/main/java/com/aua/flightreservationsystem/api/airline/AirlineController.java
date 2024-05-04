@@ -1,48 +1,48 @@
 package com.aua.flightreservationsystem.api.airline;
 
-
 import com.aua.flightreservationsystem.core.airline.Airline;
 import com.aua.flightreservationsystem.core.airline.AirlineService;
 import com.aua.flightreservationsystem.core.airline.exceptions.AirlineAlreadyExistsException;
 import com.aua.flightreservationsystem.core.airline.exceptions.AirlineNotFoundException;
+import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.UUID;
-
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/admin_employee/airline")
 public class AirlineController {
-    final private AirlineApiMapper airlineApiMapper;
-    final private AirlineService airlineService;
-    
+    private final AirlineApiMapper airlineApiMapper;
+    private final AirlineService airlineService;
+
     @GetMapping("/")
-    public ResponseEntity<List<AirlineResponse>> getAllAirlines(){
-        return ResponseEntity.ok(airlineService.getAll().stream().map(airlineApiMapper::map).toList());
+    public ResponseEntity<List<AirlineResponse>> getAllAirlines() {
+        return ResponseEntity.ok(
+                airlineService.getAll().stream().map(airlineApiMapper::map).toList());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<AirlineResponse> getAirlineById(@PathVariable UUID id) throws AirlineNotFoundException {
-        Airline airline = airlineService.getById(id)
-                .orElseThrow(() -> new AirlineNotFoundException(id));
+        Airline airline = airlineService.getById(id).orElseThrow(() -> new AirlineNotFoundException(id));
 
         return ResponseEntity.ok(airlineApiMapper.map(airline));
     }
 
     @PostMapping("/")
-    public ResponseEntity<AirlineResponse> createAirline(@RequestBody AirlineRequest airlineRequest) throws AirlineAlreadyExistsException {
-        Airline airline= airlineApiMapper.map(airlineRequest);
+    public ResponseEntity<AirlineResponse> createAirline(@RequestBody AirlineRequest airlineRequest)
+            throws AirlineAlreadyExistsException {
+        Airline airline = airlineApiMapper.map(airlineRequest);
         Airline savedAirline = airlineService.save(airline);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(airlineApiMapper.map(savedAirline));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AirlineResponse> updateAirline(@PathVariable UUID id, @RequestBody AirlineRequest airlineRequest) {
+    public ResponseEntity<AirlineResponse> updateAirline(
+            @PathVariable UUID id, @RequestBody AirlineRequest airlineRequest) {
         HttpStatus httpStatus;
         if (airlineService.getById(id).isPresent()) {
             httpStatus = HttpStatus.OK;
@@ -57,8 +57,7 @@ public class AirlineController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAirline(@PathVariable UUID id) throws AirlineNotFoundException {
-        airlineService.getById(id)
-                .orElseThrow(() -> new AirlineNotFoundException(id));
+        airlineService.getById(id).orElseThrow(() -> new AirlineNotFoundException(id));
 
         airlineService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body(null);

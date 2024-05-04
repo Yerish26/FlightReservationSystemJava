@@ -14,12 +14,14 @@ public class UserDetailsServiceImp implements UserDetailsService {
 
     public UserDetailsServiceImp(UserPersistenceManager userPersistenceManager, UserEntityMapper userEntityMapper) {
         this.userPersistenceManager = userPersistenceManager;
-        this.userEntityMapper= userEntityMapper;
+        this.userEntityMapper = userEntityMapper;
     }
-
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userPersistenceManager.findByUsername(username).map(userEntityMapper::map).orElseThrow(() -> new UsernameNotFoundException(username));
+        return userPersistenceManager
+                .findByUsername(username)
+                .map(userEntityMapper::map)
+                .orElseThrow(() -> new UsernameNotFoundException(username));
     }
 }

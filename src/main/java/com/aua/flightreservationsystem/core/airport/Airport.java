@@ -1,10 +1,9 @@
 package com.aua.flightreservationsystem.core.airport;
 
 import com.aua.flightreservationsystem.core.city.City;
+import java.util.UUID;
 import lombok.Builder;
 import lombok.Value;
-
-import java.util.UUID;
 
 @Value
 @Builder(toBuilder = true)

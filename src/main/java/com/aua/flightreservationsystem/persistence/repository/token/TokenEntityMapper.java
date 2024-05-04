@@ -7,5 +7,6 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface TokenEntityMapper {
     Token map(TokenEntity tokenEntity);
+
     TokenEntity map(Token token);
 }
