@@ -9,6 +9,9 @@ import lombok.EqualsAndHashCode;
 @Table(name = "airport")
 @Data
 public class AirportEntity extends BaseEntity {
+    @Column(name = "name")
+    private String name;
+
     @OneToOne
     @JoinColumn(name = "city_id")
     CityEntity city;
