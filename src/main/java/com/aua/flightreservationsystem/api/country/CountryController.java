@@ -59,4 +59,18 @@ public class CountryController {
         countryService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
+
+    @ExceptionHandler(CountryNotFoundException.class)
+    ResponseEntity<String> handleCountryNotFoundExceptions(
+            CountryNotFoundException countryNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(countryNotFoundException.getMessage());
+    }
+
+    @ExceptionHandler(AircraftFactoryNotFoundException.class)
+    ResponseEntity<String> handleAircraftFactoryNotFoundExceptions(
+            AircraftFactoryNotFoundException aircraftFactoryNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(aircraftFactoryNotFoundException.getMessage());
+    }
+
+
 }
