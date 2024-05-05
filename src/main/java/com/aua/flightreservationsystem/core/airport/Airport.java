@@ -9,5 +9,6 @@ import lombok.Value;
 @Builder(toBuilder = true)
 public class Airport {
     UUID id;
+    String name;
     City city;
 }
