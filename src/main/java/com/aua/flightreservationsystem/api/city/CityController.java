@@ -64,20 +64,17 @@ public class CityController {
     }
 
     @ExceptionHandler(CityNotFoundException.class)
-    ResponseEntity<String> handleCityNotFoundExceptions(
-            CityNotFoundException cityNotFoundException) {
+    ResponseEntity<String> handleCityNotFoundExceptions(CityNotFoundException cityNotFoundException) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(cityNotFoundException.getMessage());
     }
 
     @ExceptionHandler(AirportNotFoundException.class)
-    ResponseEntity<String> handleAirportNotFoundExceptions(
-            AirportNotFoundException airportNotFoundException) {
+    ResponseEntity<String> handleAirportNotFoundExceptions(AirportNotFoundException airportNotFoundException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(airportNotFoundException.getMessage());
     }
 
     @ExceptionHandler(CountryNotFoundException.class)
-    ResponseEntity<String> handleCountryNotFoundExceptions(
-            CountryNotFoundException countryNotFoundException) {
+    ResponseEntity<String> handleCountryNotFoundExceptions(CountryNotFoundException countryNotFoundException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(countryNotFoundException.getMessage());
     }
 

@@ -61,8 +61,7 @@ public class CountryController {
     }
 
     @ExceptionHandler(CountryNotFoundException.class)
-    ResponseEntity<String> handleCountryNotFoundExceptions(
-            CountryNotFoundException countryNotFoundException) {
+    ResponseEntity<String> handleCountryNotFoundExceptions(CountryNotFoundException countryNotFoundException) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(countryNotFoundException.getMessage());
     }
 
@@ -71,6 +70,4 @@ public class CountryController {
             AircraftFactoryNotFoundException aircraftFactoryNotFoundException) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(aircraftFactoryNotFoundException.getMessage());
     }
-
-
 }

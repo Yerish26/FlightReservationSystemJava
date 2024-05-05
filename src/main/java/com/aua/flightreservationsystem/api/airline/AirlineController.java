@@ -1,6 +1,5 @@
 package com.aua.flightreservationsystem.api.airline;
 
-import com.aua.flightreservationsystem.core.aircraftFactory.exceptions.AircraftFactoryNotFoundException;
 import com.aua.flightreservationsystem.core.airline.Airline;
 import com.aua.flightreservationsystem.core.airline.AirlineService;
 import com.aua.flightreservationsystem.core.airline.exceptions.AirlineNotFoundException;
@@ -64,8 +63,7 @@ public class AirlineController {
     }
 
     @ExceptionHandler(AirlineNotFoundException.class)
-    ResponseEntity<String> handleAirlineNotFoundExceptions(
-            AirlineNotFoundException airlineNotFoundException) {
+    ResponseEntity<String> handleAirlineNotFoundExceptions(AirlineNotFoundException airlineNotFoundException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(airlineNotFoundException.getMessage());
     }
 

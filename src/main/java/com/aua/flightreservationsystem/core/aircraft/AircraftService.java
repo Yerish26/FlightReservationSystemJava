@@ -26,8 +26,7 @@ public class AircraftService {
         return aircraftPersistenceManager.findById(id);
     }
 
-    public Aircraft save(AircraftRequest aircraftRequest)
-            throws AircraftFactoryNotFoundException {
+    public Aircraft save(AircraftRequest aircraftRequest) throws AircraftFactoryNotFoundException {
         Optional<AircraftFactory> aircraftFactory = getAircraftFactory(aircraftRequest);
 
         Aircraft aircraft = getAircraft(aircraftRequest, aircraftFactory);
