@@ -1,11 +1,12 @@
 package com.aua.flightreservationsystem.api.user;
 
+import com.aua.flightreservationsystem.core.admin.Admin;
+import com.aua.flightreservationsystem.core.customer.Customer;
+import com.aua.flightreservationsystem.core.employee.Employee;
 import com.aua.flightreservationsystem.core.jwt.AuthenticationResponse;
 import com.aua.flightreservationsystem.core.jwt.AuthenticationService;
-import com.aua.flightreservationsystem.core.user.User;
 import com.aua.flightreservationsystem.core.user.exceptions.UsernameAlreadyExistsException;
 import com.aua.flightreservationsystem.core.user.exceptions.UsernameNotFoundException;
-import com.aua.flightreservationsystem.persistence.model.Role;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
@@ -24,39 +25,34 @@ public class UserController {
         this.userApiMapper = userApiMapper;
     }
 
-    public ResponseEntity<Void> registerUser(@RequestBody UserRequest userRequest, Role role)
-            throws UsernameAlreadyExistsException {
-        User user = userApiMapper.map(userRequest);
-        User createdUser = user.toBuilder().role(role).build();
-        authenticationService.register(createdUser);
-        return ResponseEntity.status(HttpStatus.OK).body(null);
-    }
-
     // TODO this should be hidden some other way for it to be completely secure
     //  but for this current purpose it is fine
     // or done by migration or the project setup
     @PostMapping("/register_admin")
-    public ResponseEntity<Void> registerAdmin(@RequestBody UserRequest userRequest)
+    public ResponseEntity<UserResponse> registerAdmin(@RequestBody AdminRequest adminRequest)
             throws UsernameAlreadyExistsException {
-        return registerUser(userRequest, Role.ADMIN);
+        Admin admin = authenticationService.registerAdmin(adminRequest);
+        return ResponseEntity.status(HttpStatus.OK).body(userApiMapper.map(admin));
     }
 
     @PostMapping("/admin_only/register_employee")
-    public ResponseEntity<Void> registerEmployee(@RequestBody UserRequest userRequest)
+    public ResponseEntity<UserResponse> registerEmployee(@RequestBody EmployeeRequest employeeRequest)
             throws UsernameAlreadyExistsException {
-        return registerUser(userRequest, Role.EMPLOYEE);
+        Employee employee = authenticationService.registerEmployee(employeeRequest);
+        return ResponseEntity.status(HttpStatus.OK).body(userApiMapper.map(employee));
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody UserRequest userRequest) throws UsernameAlreadyExistsException {
-        return registerUser(userRequest, Role.CUSTOMER);
+    public ResponseEntity<UserResponse> register(@RequestBody CustomerRequest customerRequest)
+            throws UsernameAlreadyExistsException {
+        Customer customer = authenticationService.registerCustomer(customerRequest);
+        return ResponseEntity.status(HttpStatus.OK).body(userApiMapper.map(customer));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody UserRequest userRequest)
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest)
             throws UsernameNotFoundException, AuthenticationException {
-        User user = userApiMapper.map(userRequest);
-        AuthenticationResponse authenticationResponse = authenticationService.authenticate(user);
+        AuthenticationResponse authenticationResponse = authenticationService.authenticate(loginRequest);
         return ResponseEntity.ok(userApiMapper.map(authenticationResponse));
     }
 

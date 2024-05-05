@@ -2,18 +2,14 @@ package com.aua.flightreservationsystem.persistence.model;
 
 import jakarta.persistence.*;
 import java.util.List;
-import java.util.UUID;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "aircraft_factory")
 @Data
-public class AircraftFactoryEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id")
-    private UUID id;
-
+public class AircraftFactoryEntity extends BaseEntity {
     @Column(name = "model_name")
     private String modelName;
 

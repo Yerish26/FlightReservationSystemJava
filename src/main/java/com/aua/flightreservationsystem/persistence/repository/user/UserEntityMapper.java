@@ -1,5 +1,8 @@
 package com.aua.flightreservationsystem.persistence.repository.user;
 
+import com.aua.flightreservationsystem.core.admin.Admin;
+import com.aua.flightreservationsystem.core.customer.Customer;
+import com.aua.flightreservationsystem.core.employee.Employee;
 import com.aua.flightreservationsystem.core.user.User;
 import com.aua.flightreservationsystem.persistence.model.FullName;
 import com.aua.flightreservationsystem.persistence.model.UserEntity;
@@ -18,4 +21,10 @@ public interface UserEntityMapper {
     @Mapping(target = "fullName.firstName", source = "firstName")
     @Mapping(target = "fullName.lastName", source = "lastName")
     UserEntity map(User user);
+
+    User map(Admin admin);
+
+    User map(Customer customer);
+
+    User map(Employee employee);
 }
