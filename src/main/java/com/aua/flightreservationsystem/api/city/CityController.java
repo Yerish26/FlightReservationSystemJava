@@ -62,4 +62,28 @@ public class CityController {
         cityService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
+
+    @ExceptionHandler(CityNotFoundException.class)
+    ResponseEntity<String> handleCityNotFoundExceptions(
+            CityNotFoundException cityNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(cityNotFoundException.getMessage());
+    }
+
+    @ExceptionHandler(AirportNotFoundException.class)
+    ResponseEntity<String> handleAirportNotFoundExceptions(
+            AirportNotFoundException airportNotFoundException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(airportNotFoundException.getMessage());
+    }
+
+    @ExceptionHandler(CountryNotFoundException.class)
+    ResponseEntity<String> handleCountryNotFoundExceptions(
+            CountryNotFoundException countryNotFoundException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(countryNotFoundException.getMessage());
+    }
+
+    @ExceptionHandler(OneOrMoreFlightsNotFoundException.class)
+    ResponseEntity<String> handleOneOrMoreFlightsNotFoundExceptions(
+            OneOrMoreFlightsNotFoundException oneOrMoreFlightsNotFoundException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(oneOrMoreFlightsNotFoundException.getMessage());
+    }
 }
