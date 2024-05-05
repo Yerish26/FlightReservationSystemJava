@@ -27,7 +27,7 @@ public class AircraftService {
     }
 
     public Aircraft save(AircraftRequest aircraftRequest)
-            throws AircraftAlreadyExistsException, AircraftFactoryNotFoundException {
+            throws AircraftFactoryNotFoundException {
         Optional<AircraftFactory> aircraftFactory = getAircraftFactory(aircraftRequest);
 
         Aircraft aircraft = getAircraft(aircraftRequest, aircraftFactory);
