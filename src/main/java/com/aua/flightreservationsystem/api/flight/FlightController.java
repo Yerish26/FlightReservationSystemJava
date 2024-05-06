@@ -19,7 +19,7 @@ public class FlightController {
     private final FlightService flightService;
     private final FlightApiMapper flightApiMapper;
 
-    @GetMapping("")
+    @GetMapping()
     public ResponseEntity<List<FlightResponse>> getAllFlights() {
         return ResponseEntity.ok(
                 flightService.getAll().stream().map(flightApiMapper::map).toList());
@@ -32,7 +32,7 @@ public class FlightController {
         return ResponseEntity.ok(flightApiMapper.map(flight));
     }
 
-    @PostMapping("")
+    @PostMapping()
     public ResponseEntity<Flight> createFlight(@RequestBody FlightRequest flightRequest)
             throws FlightAlreadyExistsException {
         Flight flight = flightService.save(flightRequest);

@@ -18,7 +18,7 @@ public class CountryController {
     private final CountryApiMapper countryApiMapper;
     private final CountryService countryService;
 
-    @GetMapping("")
+    @GetMapping()
     public ResponseEntity<List<CountryResponse>> getAllAircraftFactories() {
         return ResponseEntity.ok(
                 countryService.getAll().stream().map(countryApiMapper::map).toList());
@@ -32,7 +32,7 @@ public class CountryController {
         return ResponseEntity.ok(countryApiMapper.map(country));
     }
 
-    @PostMapping("")
+    @PostMapping()
     public ResponseEntity<CountryResponse> createAircraftFactory(@RequestBody CountryRequest countryRequest) {
         Country savedCountry = countryService.save(countryRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(countryApiMapper.map(savedCountry));

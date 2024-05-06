@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/allow/airport")
+@RequestMapping("/airport")
 public class AirportController {
     private final AirportApiMapper aircraftApiMapper;
     private final AirportService airportService;
 
-    @GetMapping("/")
+    @GetMapping()
     public ResponseEntity<List<AirportResponse>> getAllAircraftFactories() {
         return ResponseEntity.ok(
                 airportService.getAll().stream().map(aircraftApiMapper::map).toList());
@@ -32,7 +32,7 @@ public class AirportController {
         return ResponseEntity.ok(aircraftApiMapper.map(airport));
     }
 
-    @PostMapping("/")
+    @PostMapping()
     public ResponseEntity<AirportResponse> createAircraftFactory(@RequestBody AirportRequest airportRequest)
             throws CityNotFoundException {
         Airport savedAircraftFactory = airportService.save(airportRequest);
