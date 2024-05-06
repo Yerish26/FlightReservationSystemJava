@@ -17,8 +17,11 @@ public class CityEntity extends BaseEntity {
     @JoinColumn(name = "country_id")
     private CountryEntity country;
 
-    @OneToMany
-    private List<FlightEntity> flights;
+    @OneToMany(mappedBy = "source")
+    private List<FlightEntity> sourceFlights;
+
+    @OneToMany(mappedBy = "destination")
+    private List<FlightEntity> DestinationFlights;
 
     @OneToOne
     private AirportEntity airport;

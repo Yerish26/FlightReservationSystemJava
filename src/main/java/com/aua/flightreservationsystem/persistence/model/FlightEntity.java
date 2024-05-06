@@ -2,6 +2,8 @@ package com.aua.flightreservationsystem.persistence.model;
 
 import jakarta.persistence.*;
 import java.util.Date;
+import java.util.List;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -25,4 +27,23 @@ public class FlightEntity extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "airline_id")
     private AirlineEntity airline;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private CustomerEntity customer;
+
+    @ManyToMany
+    @JoinTable(
+            name = "admin_changes",
+            joinColumns = @JoinColumn(name = "admin_id"),
+            inverseJoinColumns = @JoinColumn(name = "flight_id"))
+    private List<AdminEntity> admin;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "employee_changes",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "flight_id"))
+    private List<EmployeeEntity> employees;
 }

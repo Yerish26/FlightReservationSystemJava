@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.List;
+
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "admin")
@@ -16,4 +18,7 @@ public class AdminEntity extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
+
+    @ManyToMany(mappedBy = "admin")
+    List<FlightEntity> flights;
 }
