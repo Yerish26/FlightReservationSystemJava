@@ -3,7 +3,6 @@ package com.aua.flightreservationsystem.persistence.model;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

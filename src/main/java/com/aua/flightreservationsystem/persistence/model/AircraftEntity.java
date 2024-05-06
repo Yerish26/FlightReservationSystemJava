@@ -1,6 +1,5 @@
 package com.aua.flightreservationsystem.persistence.model;
 
-import com.aua.flightreservationsystem.core.airline.Airline;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

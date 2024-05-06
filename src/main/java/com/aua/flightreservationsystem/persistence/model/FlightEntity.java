@@ -3,7 +3,6 @@ package com.aua.flightreservationsystem.persistence.model;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -38,7 +37,6 @@ public class FlightEntity extends BaseEntity {
             joinColumns = @JoinColumn(name = "admin_id"),
             inverseJoinColumns = @JoinColumn(name = "flight_id"))
     private List<AdminEntity> admin;
-
 
     @ManyToMany
     @JoinTable(
