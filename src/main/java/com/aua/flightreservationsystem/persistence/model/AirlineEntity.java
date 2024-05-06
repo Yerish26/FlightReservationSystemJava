@@ -15,4 +15,7 @@ public class AirlineEntity extends BaseEntity {
 
     @OneToMany(mappedBy = "airline")
     private List<FlightEntity> flights;
+
+    @OneToMany(mappedBy = "airline")
+    private List<AircraftEntity> aircrafts;
 }

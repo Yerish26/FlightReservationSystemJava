@@ -18,4 +18,8 @@ public class AircraftEntity extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "aircraft_factory_id")
     private AircraftFactoryEntity aircraftFactory;
+
+    @ManyToOne
+    @JoinColumn(name = "airline_id")
+    private AirlineEntity airline;
 }

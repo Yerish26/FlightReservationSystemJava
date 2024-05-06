@@ -1,6 +1,7 @@
 package com.aua.flightreservationsystem.persistence.model;
 
 import jakarta.persistence.*;
+import java.util.List;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -10,5 +11,8 @@ import lombok.EqualsAndHashCode;
 @Data
 public class CountryEntity extends BaseEntity {
     @Column(name = "name")
-    String name;
+    private String name;
+
+    @OneToMany(mappedBy = "country")
+    private List<CityEntity> cities;
 }
