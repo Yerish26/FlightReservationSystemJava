@@ -13,25 +13,26 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/flight")
 public class FlightController {
 
     private final FlightService flightService;
     private final FlightApiMapper flightApiMapper;
 
-    @GetMapping("/allow/flights")
+    @GetMapping("")
     public ResponseEntity<List<FlightResponse>> getAllFlights() {
         return ResponseEntity.ok(
                 flightService.getAll().stream().map(flightApiMapper::map).toList());
     }
 
-    @GetMapping("/flights/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<FlightResponse> getFlightById(@PathVariable UUID id) throws FlightNotFoundException {
         Flight flight = flightService.getById(id).orElseThrow(() -> new FlightNotFoundException(id));
 
         return ResponseEntity.ok(flightApiMapper.map(flight));
     }
 
-    @PostMapping("/flights")
+    @PostMapping("")
     public ResponseEntity<Flight> createFlight(@RequestBody FlightRequest flightRequest)
             throws FlightAlreadyExistsException {
         Flight flight = flightService.save(flightRequest);
@@ -39,7 +40,7 @@ public class FlightController {
         return ResponseEntity.status(HttpStatus.CREATED).body(flight);
     }
 
-    @PutMapping("/flights/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Flight> updateFlight(@PathVariable UUID id, @RequestBody FlightRequest flightRequest) {
         HttpStatus httpStatus;
         if (flightService.getById(id).isPresent()) {
@@ -53,7 +54,7 @@ public class FlightController {
         return ResponseEntity.status(httpStatus).body(updateFlight);
     }
 
-    @DeleteMapping("/flights/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFlight(@PathVariable UUID id) throws FlightNotFoundException {
         flightService.getById(id).orElseThrow(() -> new FlightNotFoundException(id));
 

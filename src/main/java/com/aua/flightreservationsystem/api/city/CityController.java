@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/allow/city")
+@RequestMapping("/city")
 public class CityController {
     private final CityApiMapper cityApiMapper;
     private final CityService cityService;
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<CityResponse>> getAllCities() {
         return ResponseEntity.ok(
                 cityService.getAll().stream().map(cityApiMapper::map).toList());
@@ -33,7 +33,7 @@ public class CityController {
         return ResponseEntity.ok(cityApiMapper.map(city));
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<CityResponse> createCity(@RequestBody CityRequest cityRequest)
             throws OneOrMoreFlightsNotFoundException, AirportNotFoundException, CountryNotFoundException {
         City savedAirline = cityService.save(cityRequest);
