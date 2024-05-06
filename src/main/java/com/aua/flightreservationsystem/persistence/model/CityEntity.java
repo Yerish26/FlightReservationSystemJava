@@ -23,6 +23,6 @@ public class CityEntity extends BaseEntity {
     @OneToMany(mappedBy = "destination")
     private List<FlightEntity> DestinationFlights;
 
-    @OneToOne
+    @OneToOne(mappedBy = "city")
     private AirportEntity airport;
 }

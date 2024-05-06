@@ -18,6 +18,9 @@ public class AdminEntity extends BaseEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @ManyToMany(mappedBy = "admin")
-    List<FlightEntity> flights;
+    @ManyToMany(mappedBy = "adminUpdated")
+    List<FlightEntity> flightsUpdated;
+
+    @ManyToMany(mappedBy = "adminDeleted")
+    List<FlightEntity> flightsDeleted;
 }

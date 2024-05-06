@@ -33,10 +33,17 @@ public class FlightEntity extends BaseEntity {
 
     @ManyToMany
     @JoinTable(
-            name = "admin_changes",
+            name = "admin_updates",
             joinColumns = @JoinColumn(name = "admin_id"),
             inverseJoinColumns = @JoinColumn(name = "flight_id"))
-    private List<AdminEntity> admin;
+    private List<AdminEntity> adminUpdated;
+
+    @ManyToMany
+    @JoinTable(
+            name = "admin_deletes",
+            joinColumns = @JoinColumn(name = "admin_id"),
+            inverseJoinColumns = @JoinColumn(name = "flight_id"))
+    private List<AdminEntity> adminDeleted;
 
     @ManyToMany
     @JoinTable(
