@@ -17,4 +17,7 @@ public class CustomerEntity extends BaseEntity {
 
     @OneToMany(mappedBy = "customer")
     private List<FlightEntity> flights;
+
+    @OneToMany(mappedBy = "customer")
+    private List<PassportInfoEntity> passportInfos;
 }

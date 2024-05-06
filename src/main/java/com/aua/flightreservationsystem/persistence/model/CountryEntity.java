@@ -15,4 +15,7 @@ public class CountryEntity extends BaseEntity {
 
     @OneToMany(mappedBy = "country")
     private List<CityEntity> cities;
+
+    @OneToMany(mappedBy = "country")
+    private List<PassportInfoEntity> passportInfoEntities;
 }
