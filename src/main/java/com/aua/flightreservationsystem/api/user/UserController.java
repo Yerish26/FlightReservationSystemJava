@@ -27,7 +27,7 @@ public class UserController {
 
     // TODO this should be hidden some other way for it to be completely secure
     //  but for this current purpose it is fine
-    // or done by migration or the project setup
+    //  or done by migration or the project setup
     @PostMapping("/register_admin")
     public ResponseEntity<UserResponse> registerAdmin(@RequestBody AdminRequest adminRequest)
             throws UsernameAlreadyExistsException {

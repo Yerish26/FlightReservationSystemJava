@@ -2,7 +2,6 @@ package com.aua.flightreservationsystem.api.aircraftFactory;
 
 import com.aua.flightreservationsystem.core.aircraftFactory.AircraftFactory;
 import com.aua.flightreservationsystem.core.aircraftFactory.AircraftFactoryService;
-import com.aua.flightreservationsystem.core.aircraftFactory.exceptions.AircraftFactoryAlreadyExistsException;
 import com.aua.flightreservationsystem.core.aircraftFactory.exceptions.AircraftFactoryNotFoundException;
 import java.util.List;
 import java.util.UUID;
@@ -13,12 +12,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/allow/aircraft-factory")
+@RequestMapping("/aircraft-factory")
 public class AircraftFactoryController {
     private final AircraftFactoryApiMapper aircraftApiMapper;
     private final AircraftFactoryService aircraftFactoryService;
 
-    @GetMapping("/")
+    @GetMapping()
     public ResponseEntity<List<AircraftFactoryResponse>> getAllAircraftFactories() {
         return ResponseEntity.ok(aircraftFactoryService.getAll().stream()
                 .map(aircraftApiMapper::map)
@@ -34,9 +33,9 @@ public class AircraftFactoryController {
         return ResponseEntity.ok(aircraftApiMapper.map(aircraftFactory));
     }
 
-    @PostMapping("/")
+    @PostMapping()
     public ResponseEntity<AircraftFactoryResponse> createAircraftFactory(
-            @RequestBody AircraftFactoryRequest aircraftFactoryRequest) throws AircraftFactoryAlreadyExistsException {
+            @RequestBody AircraftFactoryRequest aircraftFactoryRequest) {
         AircraftFactory savedAircraftFactory = aircraftFactoryService.save(aircraftFactoryRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(aircraftApiMapper.map(savedAircraftFactory));
     }
@@ -61,12 +60,6 @@ public class AircraftFactoryController {
 
         aircraftFactoryService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body(null);
-    }
-
-    @ExceptionHandler(AircraftFactoryAlreadyExistsException.class)
-    ResponseEntity<String> handleAircraftFactoryAlreadyExistsExceptions(
-            AircraftFactoryAlreadyExistsException aircraftFactoryAlreadyExistsException) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(aircraftFactoryAlreadyExistsException.getMessage());
     }
 
     @ExceptionHandler(AircraftFactoryNotFoundException.class)

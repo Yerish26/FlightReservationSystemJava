@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/allow/airline")
+@RequestMapping("/airline")
 public class AirlineController {
     private final AirlineApiMapper airlineApiMapper;
     private final AirlineService airlineService;
 
-    @GetMapping("/")
+    @GetMapping()
     public ResponseEntity<List<AirlineResponse>> getAllAirlines() {
         return ResponseEntity.ok(
                 airlineService.getAll().stream().map(airlineApiMapper::map).toList());
@@ -31,7 +31,7 @@ public class AirlineController {
         return ResponseEntity.ok(airlineApiMapper.map(airline));
     }
 
-    @PostMapping("/")
+    @PostMapping()
     public ResponseEntity<AirlineResponse> createAirline(@RequestBody AirlineRequest airlineRequest)
             throws OneOrMoreFlightsNotFoundException {
         Airline savedAirline = airlineService.save(airlineRequest);
@@ -60,5 +60,16 @@ public class AirlineController {
 
         airlineService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body(null);
+    }
+
+    @ExceptionHandler(AirlineNotFoundException.class)
+    ResponseEntity<String> handleAirlineNotFoundExceptions(AirlineNotFoundException airlineNotFoundException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(airlineNotFoundException.getMessage());
+    }
+
+    @ExceptionHandler(OneOrMoreFlightsNotFoundException.class)
+    ResponseEntity<String> handleOneOrMoreFlightsNotFoundExceptions(
+            OneOrMoreFlightsNotFoundException oneOrMoreFlightsNotFoundException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(oneOrMoreFlightsNotFoundException.getMessage());
     }
 }

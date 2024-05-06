@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/allow/city")
+@RequestMapping("/city")
 public class CityController {
     private final CityApiMapper cityApiMapper;
     private final CityService cityService;
 
-    @GetMapping("/")
+    @GetMapping()
     public ResponseEntity<List<CityResponse>> getAllCities() {
         return ResponseEntity.ok(
                 cityService.getAll().stream().map(cityApiMapper::map).toList());
@@ -33,7 +33,7 @@ public class CityController {
         return ResponseEntity.ok(cityApiMapper.map(city));
     }
 
-    @PostMapping("/")
+    @PostMapping()
     public ResponseEntity<CityResponse> createCity(@RequestBody CityRequest cityRequest)
             throws OneOrMoreFlightsNotFoundException, AirportNotFoundException, CountryNotFoundException {
         City savedAirline = cityService.save(cityRequest);
@@ -61,5 +61,26 @@ public class CityController {
 
         cityService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body(null);
+    }
+
+    @ExceptionHandler(CityNotFoundException.class)
+    ResponseEntity<String> handleCityNotFoundExceptions(CityNotFoundException cityNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(cityNotFoundException.getMessage());
+    }
+
+    @ExceptionHandler(AirportNotFoundException.class)
+    ResponseEntity<String> handleAirportNotFoundExceptions(AirportNotFoundException airportNotFoundException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(airportNotFoundException.getMessage());
+    }
+
+    @ExceptionHandler(CountryNotFoundException.class)
+    ResponseEntity<String> handleCountryNotFoundExceptions(CountryNotFoundException countryNotFoundException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(countryNotFoundException.getMessage());
+    }
+
+    @ExceptionHandler(OneOrMoreFlightsNotFoundException.class)
+    ResponseEntity<String> handleOneOrMoreFlightsNotFoundExceptions(
+            OneOrMoreFlightsNotFoundException oneOrMoreFlightsNotFoundException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(oneOrMoreFlightsNotFoundException.getMessage());
     }
 }

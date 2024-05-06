@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/allow/aircraft")
+@RequestMapping("/aircraft")
 public class AircraftController {
     private final AircraftApiMapper aircraftApiMapper;
     private final AircraftService aircraftService;
 
-    @GetMapping("/")
+    @GetMapping()
     public ResponseEntity<List<AircraftResponse>> getAllAircraftFactories() {
         return ResponseEntity.ok(
                 aircraftService.getAll().stream().map(aircraftApiMapper::map).toList());
@@ -32,9 +32,9 @@ public class AircraftController {
         return ResponseEntity.ok(aircraftApiMapper.map(aircraft));
     }
 
-    @PostMapping("/")
+    @PostMapping()
     public ResponseEntity<AircraftResponse> createAircraft(@RequestBody AircraftRequest aircraftRequest)
-            throws AircraftAlreadyExistsException, AircraftFactoryNotFoundException {
+            throws AircraftFactoryNotFoundException {
         Aircraft savedAircraft = aircraftService.save(aircraftRequest);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(aircraftApiMapper.map(savedAircraft));
